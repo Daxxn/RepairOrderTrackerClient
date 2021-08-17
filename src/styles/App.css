@@ -33,6 +33,10 @@
   grid-template-rows: 1fr 12fr;
 }
 
+.App-body-container {
+  grid-row: 2;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

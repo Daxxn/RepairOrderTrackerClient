@@ -1,10 +1,11 @@
 import UserModel, { UserData } from './userModel';
-import { ObjectId } from 'bson';
+// import { ObjectId } from 'bson';
 import { TechObjects } from './techModel';
 import { JobObjects } from './jobModel';
 import { RepairOrderObjects } from './repairOrderModel';
 import { PayPeriodObjects } from './payPeriodModel';
 
+const idLen = 24;
 const devMode: boolean = process.env.NODE_ENV === 'development';
 
 const add14Days = (mod: number = 0): number => {
@@ -19,12 +20,37 @@ const buildUserTestData = (): UserData | null => {
     return null;
   }
 
-  const createId = (): string => ObjectId.generate().toString();
+  const createId = (): string => {
+    // const obj = ObjectId.generate();
+    // var str = '';
+    // obj.forEach(s => str += String.fromCharCode(s));
+    // console.log(str);
+    // return str;
+    return createCustomId();
+  }
+
+  const createCustomId = (): string => {
+    var output = '';
+    for (let i = 0; i < idLen; i++) {
+      var result = rollNumber();
+      output += result;
+    }
+    return output;
+  }
+
+  const rollNumber = (): number => {
+    const rollA =  Math.round(Math.random() * 10);
+    const rollB =  Math.pow(Math.round(Math.random() * 10), 2);
+    const xor = rollA ^ rollB;
+    return xor & 9;
+  }
 
   const ids: string[] = [];
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 20; i++) {
     ids.push(createId());
   }
+
+  console.log(ids);
 
   const techs: TechObjects = {
     [ids[0]]: {
@@ -100,8 +126,8 @@ const buildUserTestData = (): UserData | null => {
       date: new Date(Date.now()),
       isCompleted: false,
       jobs: [
-        jobs[0]._id,
-        jobs[1]._id,
+        jobs[ids[4]]._id,
+        jobs[ids[5]]._id,
       ],
     },
     [ids[9]]: {
@@ -111,8 +137,8 @@ const buildUserTestData = (): UserData | null => {
       date: new Date(Date.now()),
       isCompleted: false,
       jobs: [
-        jobs[2]._id,
-        jobs[3]._id,
+        jobs[ids[6]]._id,
+        jobs[ids[7]]._id,
       ],
     },
     [ids[10]]: {
@@ -122,8 +148,8 @@ const buildUserTestData = (): UserData | null => {
       date: new Date(Date.now()),
       isCompleted: true,
       jobs: [
-        jobs[1]._id,
-        jobs[3]._id,
+        jobs[ids[4]]._id,
+        jobs[ids[7]]._id,
       ],
     },
   };
@@ -165,13 +191,17 @@ const buildUserTestData = (): UserData | null => {
     ]
   }
 
-  return {
+  const data: UserData = {
     user,
     repairOrders,
     jobs,
     payPeriods,
     techs,
   }
+
+  console.log(data);
+
+  return data;
 }
 
 export default buildUserTestData;

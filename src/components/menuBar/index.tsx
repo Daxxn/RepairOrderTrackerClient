@@ -1,29 +1,33 @@
-import { Button } from 'react-bootstrap';
-import UserModel from '../../models/userModel';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import '../../styles/components/menuBar.css';
-import LoginButton from '../loginButton';
+// import LoginButton from '../loginButton';
 
 export interface MenuBarProps {
   title: string;
+  handleLoadTestData: () => void;
 }
 
 const MenuBar = (props: MenuBarProps): JSX.Element => {
-  const {title} = props;
-
-  const user = UserModel.getUser();
+  const { title, handleLoadTestData } = props;
 
   return (
     <div className="Menubar-container">
       <div className="Menubar-hamb">
-        <Button>
-          Hamb
-        </Button>
+        <Button variant="primary">Hamb</Button>
       </div>
       <div className="Menubar-title">
         <h1>{title}</h1>
       </div>
       <div className="Menubar-login">
-        <LoginButton currentUsername={user?.userName} />
+        <ButtonGroup>
+          {/* <LoginButton currentUsername={user?.userName} /> */}
+          <Button>
+            User Menu Test
+          </Button>
+          <Button onClick={handleLoadTestData}>
+            Test Data Load
+          </Button>
+        </ButtonGroup>
       </div>
     </div>
   );
