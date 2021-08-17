@@ -1,0 +1,21 @@
+.Menubar-container {
+  background-color: red;
+  grid-row: 1;
+  display: grid;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  grid-template-columns: 1fr 10fr 1fr;
+}
+
+.Menubar-hamb {
+  grid-column: 1;
+}
+
+.Menubar-title {
+  grid-column: 2;
+}
+
+.Menubar-login {
+  grid-column: 3;
+}

@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import MenuBar from './components/menuBar';
+import UserModel from './models/userModel';
+import buildUserTestData from './models/TestingModels';
+import './styles/App.css';
 
-function App() {
+const App = () => {
+  useEffect(() => {
+    const data = buildUserTestData();
+    if (data) {
+      UserModel.setUser(data.user);
+    }
+    return () => {}
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-container">
+        <MenuBar title="Repair Tracker"/>
+      </div>
     </div>
   );
 }
