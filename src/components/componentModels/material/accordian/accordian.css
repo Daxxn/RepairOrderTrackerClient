@@ -1,0 +1,29 @@
+.Base-accordian {
+  display: flexbox;
+  flex-flow: row nowrap;
+}
+
+.Accordian-button {
+  transition: ease-in 100ms;
+}
+
+.Accordian-button:hover {
+  filter: saturate(0.7);
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.Accordian-reset {
+  align-content: space-around;
+  text-align: center;
+}

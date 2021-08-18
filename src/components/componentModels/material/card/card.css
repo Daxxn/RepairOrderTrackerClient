@@ -1,0 +1,19 @@
+.Base-card {
+  border-radius: var(--card-radius);
+  border-width: var(--card-border-thickness);
+  border-spacing: var(--card-border-spacing);
+
+  background-color: var(--card-background-main);
+
+  margin: var(--card-margin);
+}
+
+.Header-card {
+  background-color: var(--theme-primary-dark);
+  color: var(--theme-font-color);
+}
+
+.Body-card {
+  background-color: var(--theme-primary-main);
+  color: var(--theme-font-color);
+}

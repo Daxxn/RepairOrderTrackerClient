@@ -1,8 +1,10 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import Card from '../material/card';
 import JobModel from '../../../models/jobModel';
 import { TechObjects } from '../../../models/techModel';
 import UserModel from '../../../models/userModel';
+import Title from '../material/title';
+import Text from '../material/text';
 
 export interface JobProps {
   job: JobModel;
@@ -14,16 +16,14 @@ const Job = (props: JobProps): JSX.Element => {
   
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>{job.name}</Card.Title>
-      </Card.Header>
-      <Card.Body>
-        <Card.Text>{job.time}</Card.Text>
+        <Title>{job.name}</Title>
+      <Card>
+        <Text>{job.time}</Text>
         {job.isRecall ? (
-          <Card.Text>recall</Card.Text>
+          <Text>recall</Text>
         ) : ''}
-        <Card.Text>{techs[job.assignedTech].name}</Card.Text>
-      </Card.Body>
+        <Card>{techs[job.assignedTech].name}</Card>
+      </Card>
     </Card>
   );
 };

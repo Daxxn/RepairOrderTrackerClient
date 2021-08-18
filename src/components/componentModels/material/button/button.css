@@ -1,0 +1,16 @@
+.Base-button {
+  all: unset;
+  color: var(--theme-font-color);
+  border-radius: var(--card-radius);
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  transition: ease-in 100ms;
+}
+
+.Base-button:hover {
+  filter: saturate(0.8);
+}
+
+.Base-button:hover {
+  filter: saturate(0.8);
+}

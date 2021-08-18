@@ -1,36 +1,35 @@
-import { Button, ButtonGroup } from 'react-bootstrap';
-import '../../styles/components/menuBar.css';
+import Button from '../componentModels/material/button';
+import Container from '../componentModels/material/container';
+import '../../styles/components/mainMenuBar.css';
+import MenuBar from '../componentModels/material/menuBar';
+import Title from '../componentModels/material/title';
 // import LoginButton from '../loginButton';
 
-export interface MenuBarProps {
+export interface MainMenuBarProps {
   title: string;
   handleLoadTestData: () => void;
 }
 
-const MenuBar = (props: MenuBarProps): JSX.Element => {
+const MainMenuBar = (props: MainMenuBarProps): JSX.Element => {
   const { title, handleLoadTestData } = props;
 
   return (
-    <div className="Menubar-container">
-      <div className="Menubar-hamb">
-        <Button variant="primary">Hamb</Button>
-      </div>
-      <div className="Menubar-title">
-        <h1>{title}</h1>
-      </div>
-      <div className="Menubar-login">
-        <ButtonGroup>
+    <MenuBar flexDir="row" theme="light">
+        <Button type="dark">Hamb</Button>
+      <Title size="med">
+        {title}
+      </Title>
+      <Container flexDirection="row">
           {/* <LoginButton currentUsername={user?.userName} /> */}
-          <Button>
+          <Button type="dark">
             User Menu Test
           </Button>
-          <Button onClick={handleLoadTestData}>
+          <Button type="dark" onClick={handleLoadTestData}>
             Test Data Load
           </Button>
-        </ButtonGroup>
-      </div>
-    </div>
+      </Container>
+    </MenuBar>
   );
 };
 
-export default MenuBar;
+export default MainMenuBar;
