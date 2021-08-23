@@ -1,0 +1,8 @@
+<svg id="svg8" width="48" height="48" version="1.1" viewBox="0 0 12.7 12.7" xmlns="http://www.w3.org/2000/svg">
+  <g id="layer1">
+    <path id="frame" d="m1.3229 11.906v-10.583h7.9375l1.3229 1.3229v9.2604z" fill="none" stroke="#000" stroke-opacity=".6" stroke-width=".26458px"/>
+    <path id="cover-box" d="m8.4667 1.8521v2.6458h-3.4396v-2.6458z" fill="none" stroke="#000" stroke-opacity=".6" stroke-width=".26458px"/>
+    <circle id="disk-hub" cx="5.9531" cy="6.6146" r="1.3229" fill-opacity=".5" style="paint-order:stroke fill markers"/>
+    <rect id="label" x="2.5135" y="8.2021" width="6.8792" height="3.175" rx="1.0583" ry="1.0583" fill-opacity=".4" style="paint-order:stroke fill markers"/>
+  </g>
+</svg>

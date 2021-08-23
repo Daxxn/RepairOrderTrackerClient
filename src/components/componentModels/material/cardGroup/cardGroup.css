@@ -1,0 +1,4 @@
+.Base-card-group {
+  display: flexbox;
+  flex-wrap: nowrap;
+}

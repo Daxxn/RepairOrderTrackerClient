@@ -7,6 +7,7 @@
   --card-border-spacing: 0.2rem;
   --card-margin: 1rem;
   
+  --icon-size: 25px;
   
   /*Theme Colors*/
   /* Theme Primary */
@@ -49,4 +50,13 @@ code {
 
 .dark {
   background-color: var(--theme-primary-dark);
+}
+
+.invert {
+  transform: rotate(180deg);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
 }
