@@ -1,0 +1,7 @@
+.Base-menu-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  position: static;
+  background-color: var(--theme-primary-main);
+}

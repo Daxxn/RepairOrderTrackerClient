@@ -1,11 +1,12 @@
 import React from 'react';
-import { Card, CardGroup } from 'react-bootstrap';
 import { TechObjects } from '../../../models/techModel';
 import UserModel from '../../../models/userModel';
+import Container from '../material/container';
+import Text from '../material/text';
 import Tech from './tech';
 
 export interface TechsProps {
-  techIds: string[];
+  techIds?: string[];
 }
 
 const Techs = (props: TechsProps): JSX.Element => {
@@ -13,13 +14,19 @@ const Techs = (props: TechsProps): JSX.Element => {
   const techs = UserModel.getObjects('Techs') as TechObjects;
 
   return (
-    <CardGroup>
+    <Container>
       {techIds && techIds.length > 0 ? techIds.map(id => (
         <Tech tech={techs[id]} />
       )): (
-        <Card.Text>No Techs...</Card.Text>
+        <>
+          {techs ? Object.values(techs).map(tech => (
+            <Tech tech={tech} />
+          )) : (
+            <Text>No Techs found.</Text>
+          )}
+        </>
       )}
-    </CardGroup>
+    </Container>
   );
 };
 

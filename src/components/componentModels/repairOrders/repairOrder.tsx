@@ -1,6 +1,9 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import Card from '../material/card';
 import RepairOrderModel from '../../../models/repairOrderModel';
+import Title from '../material/title';
+import Text from '../material/text';
+import Jobs from '../jobs';
 
 export interface RepairOrderProps {
   repairOrder: RepairOrderModel;
@@ -8,17 +11,14 @@ export interface RepairOrderProps {
 
 const RepairOrder = (props: RepairOrderProps): JSX.Element => {
   const { repairOrder } = props;
+  const { jobs, _id } = repairOrder;
   
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>RO {repairOrder.roNumber}</Card.Title>
-        <Card.Text>Date {repairOrder.date.toDateString()}</Card.Text>
-        <Card.Text>Date {repairOrder.date.toDateString()}</Card.Text>
-      </Card.Header>
-      <Card.Body>
-        
-      </Card.Body>
+      <Title>RO {repairOrder.roNumber}</Title>
+      <Text>Date {repairOrder.date.toDateString()}</Text>
+      <Text>Date {repairOrder.date.toDateString()}</Text>
+        <Jobs jobIds={jobs} parentId={_id} />
     </Card>
   );
 };

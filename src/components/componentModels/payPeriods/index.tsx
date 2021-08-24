@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { CardColumns, Card } from 'react-bootstrap';
 import { PayPeriodObjects } from '../../../models/payPeriodModel';
 import UserModel from '../../../models/userModel';
+import Card from '../material/card';
+import Text from '../material/text';
+import TitleCard from '../material/titleCard';
 import PayPeriod from './PayPeriod';
 
-export interface PayPeriodProps {
-  
-}
+export interface PayPeriodProps {}
 
 const PayPeriods = (props: PayPeriodProps): JSX.Element => {
   const id = 'payperiod-list';
@@ -23,20 +23,16 @@ const PayPeriods = (props: PayPeriodProps): JSX.Element => {
   }, []);
 
   return (
-    <CardColumns>
-      <Card>
-        <Card.Header>
-          <Card.Title>Main Tree</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          {user ? user.payPeriods.map(id => (
-            <PayPeriod key={`pay-period-${id}`} payPeriod={allpayPeriods[id]} />
-          )) : (
-            <p>Nothing...</p>
-          )}
-        </Card.Body>
-      </Card>
-    </CardColumns>
+    <Card row={2} theme="light">
+      <TitleCard>
+        PayPeriods
+      </TitleCard>
+      {user ? user.payPeriods.map(id => (
+        <PayPeriod key={`pay-period-${id}`} payPeriod={allpayPeriods[id]} />
+      )) : (
+        <Text size="small">Nothing...</Text>
+      )}
+    </Card>
   );
 };
 

@@ -1,25 +1,27 @@
 import React from 'react';
-import { Card, CardGroup } from 'react-bootstrap';
 import { JobObjects } from '../../../models/jobModel';
 import UserModel from '../../../models/userModel';
+import Container from '../material/container';
+import Text from '../material/text';
 import Job from './job';
 
 export interface JobsProps {
+  parentId?: string;
   jobIds: string[];
 }
 
 const Jobs = (props: JobsProps): JSX.Element => {
-  const { jobIds } = props;
+  const { jobIds, parentId } = props;
   const jobs = UserModel.getObjects('Jobs') as JobObjects;
   
   return (
-    <CardGroup>
-    {jobIds && jobIds.length > 0 ? jobIds.map(id => (
-      <Job job={jobs[id]} />
-    )): (
-      <Card.Text>No Jobs...</Card.Text>
-    )}
-    </CardGroup>
+    <Container flexDirection="column">
+      {jobIds && jobIds.length > 0 ? jobIds.map(id => (
+        <Job key={`job-${id}-${parentId ? parentId : ''}`} job={jobs[id]} />
+      )): (
+        <Text>No Jobs...</Text>
+      )}
+    </Container>
   );
 };
 

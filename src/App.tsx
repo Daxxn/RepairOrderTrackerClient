@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
-import MenuBar from './components/menuBar';
+import MainMenuBar from './components/menuBar';
 import UserModel, { UserData } from './models/userModel';
 import buildUserTestData from './models/TestingModels';
 // import { useAuth0 } from '@auth0/auth0-react';
 // import AuthHandler from './utils/authHandler';
 import './styles/App.css';
 import PayPeriods from './components/componentModels/payPeriods';
+import Container from './components/componentModels/material/container';
+import Techs from './components/componentModels/techs';
+import Accordian from './components/componentModels/material/accordian';
 
 const loadUserData = (data: UserData | null) => {
   if (data) {
@@ -47,12 +50,17 @@ const App = () => {
   
   return (
     <div className="App">
-      <div className="App-container">
-        <MenuBar title="Repair Tracker" handleLoadTestData={handleLoadTestData} />
+      <Container flexDirection="column">
+        <MainMenuBar title="Repair Tracker" handleLoadTestData={handleLoadTestData} />
+        <PayPeriods />
+        <Accordian justify="space-between">
+          <Techs />
+        </Accordian>
+      </Container>
+      {/* <div className="App-container">
         <div className="App-body-container">
-          <PayPeriods />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

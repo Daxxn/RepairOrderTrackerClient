@@ -1,0 +1,7 @@
+<svg id="svg8" width="48" height="48" version="1.1" viewBox="0 0 12.7 12.7" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb">
+  <g id="layer1">
+    <path id="page" d="m2.6458 1.0583-0.26458 0.26458v10.054l0.26458 0.26458h7.4083l0.26458-0.26458v-7.6729l-2.6458-2.6458z" fill-opacity=".35"/>
+    <path id="fold-outline" d="m7.6729 1.5875v2.1167h2.1167" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".3" stroke-width=".26458"/>
+    <path id="plus" d="m5.8208 6.2177v-1.905c0-0.21167 0-0.21167 0.21167-0.21167h0.635c0.21167 0 0.21167 0 0.21167 0.21167v1.905l1.905-4e-7c0.21167 0 0.21167 0 0.21167 0.21167v0.635c0 0.21167 0 0.21167-0.21167 0.21167h-1.905v1.905c0 0.21167 0 0.21167-0.21167 0.21167h-0.635c-0.21167 0-0.21167 0-0.21167-0.21167v-1.905h-1.905c-0.21167 0-0.21167 0-0.21167-0.21167v-0.635c0-0.21167 0-0.21167 0.21167-0.21167z" fill-opacity=".45"/>
+  </g>
+</svg>

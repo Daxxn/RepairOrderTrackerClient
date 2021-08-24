@@ -1,8 +1,38 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');
 
+:root {
+  --card-radius: 14px;
+  --card-border-thickness: 1px;
+  --card-border-spacing: 0.2rem;
+  --card-margin: 1rem;
+  
+  --icon-size: 25px;
+  
+  /*Theme Colors*/
+  /* Theme Primary */
+  --theme-primary-main: #395089;
+  --theme-primary-light: #697cb9;
+  --theme-primary-dark: #00285b;
+
+  /* Theme Secondary */
+  --theme-secondary-main: #7a7423;
+  --theme-secondary-light: #aba250;
+  --theme-secondary-dark: #4b4900;
+
+  --card-border-color: #aaa;
+  
+  --card-background-main: #ddd;
+
+  --theme-font-color: #fff;
+
+  --theme-hover-shade-light: rgba(255,255,255,0.1);
+  --theme-hover-shade-dark: rgba(0,0,0, 0.1)
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,6 +40,23 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: 'Fira Code', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.light {
+  background-color: var(--theme-primary-light);
+}
+
+.dark {
+  background-color: var(--theme-primary-dark);
+}
+
+.invert {
+  transform: rotate(180deg);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
 }

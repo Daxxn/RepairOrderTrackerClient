@@ -1,0 +1,31 @@
+.Base-title-card {
+  background-color: var(--theme-primary-main);
+  color: var(--theme-font-color);
+}
+
+.light {
+  background-color: var(--theme-primary-light);
+}
+
+.dark {
+  background-color: var(--theme-primary-dark);
+}
+
+.large {
+  font-size: 3rem;
+}
+
+.med {
+  font-size: 2rem;
+}
+
+.small {
+  font-size: 1.5rem;
+}
+
+.test {
+  flex-direction: column;
+  flex-direction: column-reverse;
+  flex-direction: row;
+  flex-direction: row-reverse;
+}

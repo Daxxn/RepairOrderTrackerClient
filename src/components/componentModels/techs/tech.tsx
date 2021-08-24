@@ -1,6 +1,9 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
 import TechModel from '../../../models/techModel';
+import Card from '../material/card';
+import TitleCard from '../material/titleCard';
+import Text from '../material/text';
+import Jobs from '../jobs';
 
 export interface TechProps {
   tech: TechModel;
@@ -8,12 +11,13 @@ export interface TechProps {
 
 const Tech = (props: TechProps): JSX.Element => {
   const { tech } = props;
+  const { _id, name, techId, activeJobs } = tech;
   
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>{tech.name}</Card.Title>
-      </Card.Header>
+      <TitleCard>{name}</TitleCard>
+      <Text>{techId}</Text>
+      <Jobs jobIds={activeJobs} parentId={_id} />
     </Card>
   );
 };

@@ -1,0 +1,11 @@
+<svg id="svg8" width="48" height="48" version="1.1" viewBox="0 0 12.7 12.7" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb">
+  <g id="layer1">
+    <path id="scale" d="m1.0583 2.3812-1e-7 7.9375h10.583" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".6" stroke-width=".52917"/>
+    <path id="line" d="m2.3812 7.6729 1.3229-3.175 3.3073 1.5875 3.3073-2.3812" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".5" stroke-width=".39688"/>
+    <g fill-opacity=".4">
+      <rect id="bar-a" x="2.3812" y="2.9104" width="2.6458" height="6.8792" rx=".26458" ry=".26458" style="paint-order:stroke fill markers"/>
+      <rect id="bar-b" x="5.6885" y="6.35" width="2.6458" height="3.4396" rx=".26458" ry=".26458" style="paint-order:stroke fill markers"/>
+      <rect id="bar-c" x="8.9958" y="3.7042" width="2.6458" height="6.0854" rx=".26458" ry=".26458" style="paint-order:stroke fill markers"/>
+    </g>
+  </g>
+</svg>

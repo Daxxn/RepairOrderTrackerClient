@@ -1,0 +1,25 @@
+<svg id="svg8" width="48" height="48" version="1.1" viewBox="0 0 12.7 12.7" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb">
+  <g id="layer1">
+    <g fill="none" stroke="#000" stroke-opacity=".5">
+      <path id="outline" d="m1.3229 2.6458h10.583m-10.472-1.2112h10.36v9.037h-10.36z" stroke-linejoin="round" stroke-width=".29104"/>
+      <path id="rect-1" d="m2.3812 5.0271v-1.3229h1.3229v1.3229z" stroke-width=".33073"/>
+      <path id="rect-2" d="m4.2333 5.0271v-1.3229h1.3229v1.3229z" stroke-width=".33073"/>
+    </g>
+    <path id="rect-7" d="m4.2333 7.1438v-1.3229h1.3229v1.3229z" fill-opacity=".55" stroke="#000" stroke-opacity=".5" stroke-width=".33073"/>
+    <g fill="none" stroke="#000" stroke-opacity=".5" stroke-width=".33073">
+      <path id="rect-3" d="m6.0854 5.0271v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-4" d="m7.9375 5.0271v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-5" d="m9.7896 5.0271v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-6" d="m2.3813 7.1438v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-8" d="m6.0854 7.1438v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-9" d="m7.9375 7.1438v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-10" d="m9.7896 7.1437v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-11" d="m2.3813 9.2604v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-12" d="m4.2333 9.2604v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-13" d="m6.0854 9.2604v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-14" d="m7.9375 9.2604v-1.3229h1.3229v1.3229z"/>
+      <path id="rect-15" d="m9.7896 9.2604v-1.3229h1.3229v1.3229z"/>
+    </g>
+    <rect id="rect3001" x="1.571" y="1.5668" width="10.087" height=".95085" rx="0" ry=".020671" fill-opacity=".55" style="paint-order:stroke fill markers"/>
+  </g>
+</svg>

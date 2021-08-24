@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
 import PayPeriodModel from '../../../models/payPeriodModel';
 import RepairOrders from '../repairOrders';
+import Card from '../material/card';
+import TitleCard from '../material/titleCard';
+import Accordian from '../material/accordian';
 
 export interface PayPeriodProps {
   payPeriod: PayPeriodModel;
@@ -12,15 +14,13 @@ const PayPeriod = (props: PayPeriodProps): JSX.Element => {
   
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>
-          <Card.Text>Start Date: {payPeriod.startDate.toDateString()}</Card.Text>
-          <Card.Text>Start Date: {payPeriod.endDate.toDateString()}</Card.Text>
-        </Card.Title>
-      </Card.Header>
-      <Card.Body>
-        <RepairOrders parentPayPeriodId={payPeriod._id} repairOrderIds={payPeriod.repairOrders} />
-      </Card.Body>
+      <TitleCard>Pay Period</TitleCard>
+      <Accordian flexDirection="row" buttonPosition="right">
+        <RepairOrders
+          parentPayPeriodId={payPeriod._id}
+          repairOrderIds={payPeriod.repairOrders}
+        />
+      </Accordian>
     </Card>
   );
 };
