@@ -15,13 +15,13 @@ const Techs = (props: TechsProps): JSX.Element => {
 
   return (
     <Container>
-      {techIds && techIds.length > 0 ? techIds.map(id => (
-        <Tech tech={techs[id]} />
-      )): (
+      {techIds && techIds.length > 0 ? (
+        techIds.map(id => <Tech tech={techs[id]} />)
+      ) : (
         <>
-          {techs ? Object.values(techs).map(tech => (
-            <Tech tech={tech} />
-          )) : (
+          {techs ? (
+            Object.values(techs).map(tech => <Tech tech={tech} />)
+          ) : (
             <Text>No Techs found.</Text>
           )}
         </>

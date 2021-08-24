@@ -19,7 +19,9 @@ const LoginButton = (props: LoginProps): JSX.Element => {
           {user ? `Logout ${user.userName}` : 'Logout'}
         </Button>
       ) : (
-        <Button type="dark" onClick={() => loginWithRedirect()}>Login</Button>
+        <Button type="dark" onClick={() => loginWithRedirect()}>
+          Login
+        </Button>
       )}
     </>
   );

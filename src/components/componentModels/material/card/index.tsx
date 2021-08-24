@@ -21,10 +21,10 @@ const Card = (props: CardProps): JSX.Element => {
   const css: CSSProperties = {
     ...columnObj,
     ...rowObj,
-  }
-  
+  };
+
   return (
-    <div className={`Base-card ${theme ? theme : ''}`} style={css}>
+    <div className={`Base-card ${theme ?? ''}`} style={css}>
       {children}
     </div>
   );

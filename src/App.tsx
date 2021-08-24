@@ -18,19 +18,22 @@ const loadUserData = (data: UserData | null) => {
     UserModel.setObjects('Jobs', data.jobs);
     UserModel.setObjects('Techs', data.techs);
   }
-}
+};
 
 const App = () => {
   useEffect(() => {
-    loadUserData(buildUserTestData());
-    return () => {}
+    let data = buildUserTestData();
+    loadUserData(data);
+    return () => {
+      data = null;
+    };
   }, []);
 
   const handleLoadTestData = () => {
     loadUserData(buildUserTestData());
-  }
+  };
 
-  //#region Auth0 Setup Test
+  // #region Auth0 Setup Test
   // const { user, getAccessTokenSilently } = useAuth0();
   // useEffect(() => {
   //   const data = buildUserTestData();
@@ -46,8 +49,8 @@ const App = () => {
   //     .catch(err => console.log(err));
   //   return () => {};
   // }, [getAccessTokenSilently, user?.sub]);
-  //#endregion
-  
+  // #endregion
+
   return (
     <div className="App">
       <Container flexDirection="column">

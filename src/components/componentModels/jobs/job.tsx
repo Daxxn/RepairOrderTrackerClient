@@ -13,15 +13,13 @@ export interface JobProps {
 const Job = (props: JobProps): JSX.Element => {
   const { job } = props;
   const techs = UserModel.getObjects('Techs') as TechObjects;
-  
+
   return (
     <Card>
-        <Title>{job.name}</Title>
+      <Title>{job.name}</Title>
       <Card>
         <Text>{job.time}</Text>
-        {job.isRecall ? (
-          <Text>recall</Text>
-        ) : ''}
+        {job.isRecall ? <Text>recall</Text> : ''}
         <Card>{techs[job.assignedTech].name}</Card>
       </Card>
     </Card>

@@ -15,14 +15,12 @@ const Icon = (props: IconProps): JSX.Element => {
 
   const css = {
     width,
-    height
-  }
+    height,
+  };
 
   return (
     <div
-      className={
-        `Base-icon${className ? ` ${className}` : ''}${invert ? ' invert' : ''}`
-      }
+      className={`Base-icon${className ? ` ${className}` : ''}${invert ? ' invert' : ''}`}
       style={css}
     >
       {children}

@@ -26,7 +26,7 @@ export type UserData = {
   jobs: JobObjects;
 };
 
-export default interface UserModel extends BaseModel {
+interface UserModel extends BaseModel {
   userName: string;
   firstName: string;
   lastName: string;
@@ -36,22 +36,22 @@ export default interface UserModel extends BaseModel {
   payPeriods: string[];
 }
 
-export default class UserModel extends BaseModel {
-  //#region Props
+class UserModel extends BaseModel {
+  // #region Props
   private static observers: UserObserver = {};
   private static user: UserModel | null = null;
   private static payPeriods: PayPeriodObjects;
   private static repairOrders: RepairOrderObjects;
   private static jobs: JobObjects;
   private static techs: TechObjects;
-  //#endregion
+  // #endregion
 
-  //#region Methods
+  // #region Methods
   static getUser(): UserModel | null {
     return this.user;
   }
 
-  static setUser(user: UserModel | null) {
+  static setUser(user: UserModel | null): void {
     this.user = user;
 
     // Send POST request to API
@@ -59,7 +59,7 @@ export default class UserModel extends BaseModel {
     this.update(user);
   }
 
-  static getObjects(type: ModelType): ModelObjects  {
+  static getObjects(type: ModelType): ModelObjects {
     switch (type) {
       case 'PayPeriods':
         return this.payPeriods;
@@ -69,10 +69,12 @@ export default class UserModel extends BaseModel {
         return this.techs;
       case 'Jobs':
         return this.jobs;
+      default:
+        throw new Error(`Unknown model type: ${type}`);
     }
   }
 
-  static setObjects(type: ModelType, data: ModelObjects) {
+  static setObjects(type: ModelType, data: ModelObjects): void {
     switch (type) {
       case 'PayPeriods':
         this.payPeriods = data as PayPeriodObjects;
@@ -86,11 +88,13 @@ export default class UserModel extends BaseModel {
       case 'Jobs':
         this.jobs = data as JobObjects;
         break;
+      default:
+        throw new Error(`Unknown model type: ${type}`);
     }
   }
 
-  //#region Observer Pattern Methods
-  static append(id: string, callback: UserCallback) {
+  // #region Observer Pattern Methods
+  static append(id: string, callback: UserCallback): void {
     if (this.observers) {
       if (!this.observers[id]) {
         this.observers[id] = callback;
@@ -98,7 +102,7 @@ export default class UserModel extends BaseModel {
     }
   }
 
-  static remove(id: string) {
+  static remove(id: string): void {
     if (this.observers) {
       if (!this.observers[id]) {
         delete this.observers[id];
@@ -106,9 +110,11 @@ export default class UserModel extends BaseModel {
     }
   }
 
-  static update(updatedUser: UserModel | null) {
+  static update(updatedUser: UserModel | null): void {
     Object.values(this.observers).forEach(o => o(updatedUser));
   }
-  //#endregion
-  //#endregion
+  // #endregion
+  // #endregion
 }
+
+export default UserModel;

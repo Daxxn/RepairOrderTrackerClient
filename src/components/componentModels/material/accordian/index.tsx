@@ -1,5 +1,4 @@
-import React, { MouseEventHandler, ReactNode } from 'react';
-import { useState } from 'react';
+import React, { MouseEventHandler, ReactNode, useState } from 'react';
 import Button from '../button';
 import Container from '../container';
 import { AccordianBtnPosType, FlexDirType, JustifyType } from '../types';
@@ -17,7 +16,8 @@ export interface AccordianProps {
 }
 
 const Accordian = (props: AccordianProps): JSX.Element => {
-  const { children, expanderButton, handleOpen, flexDirection, justify, buttonPosition } = props;
+  const { children, expanderButton, handleOpen, flexDirection, justify, buttonPosition } =
+    props;
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpenClose = () => {
@@ -25,13 +25,10 @@ const Accordian = (props: AccordianProps): JSX.Element => {
   };
 
   return (
-    <div className={`Base-accordian ${buttonPosition ? buttonPosition : 'right'}`}>
-      <Button
-        className="Accordian-button"
-        onClick={handleOpen ? handleOpen : handleOpenClose}
-      >
+    <div className={`Base-accordian ${buttonPosition ?? 'right'}`}>
+      <Button className="Accordian-button" onClick={handleOpen ?? handleOpenClose}>
         {/* {open ? 'close' : 'open'} */}
-        {expanderButton ? expanderButton : (
+        {expanderButton ?? (
           // <Arrow />
           // <Icon iconName="ExpanderArrow.svg" invert={open} />
           <Icon invert={open}>
@@ -42,9 +39,7 @@ const Accordian = (props: AccordianProps): JSX.Element => {
       {open ? (
         <div className="Accordian-reset">
           <Container flexDirection={flexDirection} justify={justify}>
-            {children ? children : (
-              <div id="empty-accordian"/>
-            )}
+            {children ?? <div id="empty-accordian" />}
           </Container>
         </div>
       ) : (

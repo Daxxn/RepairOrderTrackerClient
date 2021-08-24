@@ -13,15 +13,17 @@ export interface RepairOrdersProps {
 const RepairOrders = (props: RepairOrdersProps): JSX.Element => {
   const { repairOrderIds, parentPayPeriodId } = props;
   const repairOrders = UserModel.getObjects('RepairOrders') as RepairOrderObjects;
-  
+
   return (
-    <Card >
-      {repairOrderIds && repairOrderIds.length > 0 ? repairOrderIds.map(id => (
-        <RepairOrder
-          key={`repair-order-${id}-${parentPayPeriodId ? parentPayPeriodId : ''}`}
-          repairOrder={repairOrders[id]}
-        />
-      )): (
+    <Card>
+      {repairOrderIds && repairOrderIds.length > 0 ? (
+        repairOrderIds.map(id => (
+          <RepairOrder
+            key={`repair-order-${id}-${parentPayPeriodId ?? ''}`}
+            repairOrder={repairOrders[id]}
+          />
+        ))
+      ) : (
         <Text>No Repair Orders...</Text>
       )}
     </Card>

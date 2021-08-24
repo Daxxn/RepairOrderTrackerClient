@@ -11,7 +11,7 @@ export interface PayPeriodProps {
 
 const PayPeriod = (props: PayPeriodProps): JSX.Element => {
   const { payPeriod } = props;
-  
+
   return (
     <Card>
       <TitleCard>Pay Period</TitleCard>

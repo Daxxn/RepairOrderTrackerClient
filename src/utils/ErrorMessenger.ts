@@ -1,6 +1,5 @@
 export default interface ErrorMessenger {
   defaultImageAltText: string;
-
 }
 
 export default class ErrorMessenger {

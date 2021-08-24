@@ -1,8 +1,8 @@
-import UserModel from "../models/userModel";
+import UserModel from '../models/userModel';
 
 export default class LoginHandler {
   //#region Props
-  
+
   //#endregion
 
   //#region Methods
@@ -11,8 +11,8 @@ export default class LoginHandler {
       if (accessToken) {
         const response = await fetch('http://localhost:2000/auth/login', {
           headers: {
-            'Authorization': `Bearer ${accessToken}`
-          }
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
         const data = (await response.json()) as UserModel;
         UserModel.setUser(data);
@@ -24,8 +24,6 @@ export default class LoginHandler {
     }
   }
 
-  static logoutAPI() {
-
-  }
+  static logoutAPI() {}
   //#endregion
 }

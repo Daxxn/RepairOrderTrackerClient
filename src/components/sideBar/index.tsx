@@ -1,17 +1,7 @@
 import React from 'react';
-import { ButtonToolbar } from 'react-bootstrap';
 
-export interface SideBarProps {
-  
-}
-
-const SideBar = (props: SideBarProps): JSX.Element => {
-  const {  } = props;
-  
-  return (
-    <div>
-    </div>
-  );
+const SideBar = (): JSX.Element => {
+  return <div />;
 };
 
 export default SideBar;

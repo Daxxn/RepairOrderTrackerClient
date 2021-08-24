@@ -12,17 +12,14 @@ export interface ButtonProps {
 
 const Button = (props: ButtonProps): JSX.Element => {
   const { onClick, children, content, type, className } = props;
-  
-  var cssClass = className;
+
+  let cssClass = className;
   if (!cssClass) {
-    cssClass = `Base-button ${type ? type : ''}`;
+    cssClass = `Base-button ${type ?? ''}`;
   }
   return (
-    <button
-      onClick={onClick}
-      className={cssClass}
-    >
-      {children ? children : content}
+    <button type="button" onClick={onClick} className={cssClass}>
+      {children ?? content}
     </button>
   );
 };

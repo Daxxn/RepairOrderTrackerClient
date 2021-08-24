@@ -6,30 +6,28 @@ import Text from '../material/text';
 import TitleCard from '../material/titleCard';
 import PayPeriod from './PayPeriod';
 
-export interface PayPeriodProps {}
-
-const PayPeriods = (props: PayPeriodProps): JSX.Element => {
+const PayPeriods = (): JSX.Element => {
   const id = 'payperiod-list';
   const allpayPeriods = UserModel.getObjects('PayPeriods') as PayPeriodObjects;
   const [user, setUser] = useState<UserModel | null>(UserModel.getUser());
 
   useEffect(() => {
-    UserModel.append(id, (updatedUser) => {
+    UserModel.append(id, updatedUser => {
       setUser(updatedUser);
     });
     return () => {
       UserModel.remove(id);
-    }
+    };
   }, []);
 
   return (
     <Card row={2} theme="light">
-      <TitleCard>
-        PayPeriods
-      </TitleCard>
-      {user ? user.payPeriods.map(id => (
-        <PayPeriod key={`pay-period-${id}`} payPeriod={allpayPeriods[id]} />
-      )) : (
+      <TitleCard>PayPeriods</TitleCard>
+      {user ? (
+        user.payPeriods.map(ppId => (
+          <PayPeriod key={`pay-period-${ppId}`} payPeriod={allpayPeriods[ppId]} />
+        ))
+      ) : (
         <Text size="small">Nothing...</Text>
       )}
     </Card>

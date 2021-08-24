@@ -12,7 +12,7 @@ export interface TechProps {
 const Tech = (props: TechProps): JSX.Element => {
   const { tech } = props;
   const { _id, name, techId, activeJobs } = tech;
-  
+
   return (
     <Card>
       <TitleCard>{name}</TitleCard>

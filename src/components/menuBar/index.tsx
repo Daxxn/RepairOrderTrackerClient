@@ -1,3 +1,4 @@
+import React from 'react';
 import Button from '../componentModels/material/button';
 import Container from '../componentModels/material/container';
 import '../../styles/components/mainMenuBar.css';
@@ -15,18 +16,14 @@ const MainMenuBar = (props: MainMenuBarProps): JSX.Element => {
 
   return (
     <MenuBar flexDir="row" theme="light">
-        <Button type="dark">Hamb</Button>
-      <Title size="med">
-        {title}
-      </Title>
+      <Button type="dark">Hamb</Button>
+      <Title size="med">{title}</Title>
       <Container flexDirection="row">
-          {/* <LoginButton currentUsername={user?.userName} /> */}
-          <Button type="dark">
-            User Menu Test
-          </Button>
-          <Button type="dark" onClick={handleLoadTestData}>
-            Test Data Load
-          </Button>
+        {/* <LoginButton currentUsername={user?.userName} /> */}
+        <Button type="dark">User Menu Test</Button>
+        <Button type="dark" onClick={handleLoadTestData}>
+          Test Data Load
+        </Button>
       </Container>
     </MenuBar>
   );

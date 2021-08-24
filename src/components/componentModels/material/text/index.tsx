@@ -22,11 +22,11 @@ const Text = (props: TextProps): JSX.Element => {
   const css: CSSProperties = {
     ...columnObj,
     ...rowObj,
-  }
-  
+  };
+
   return (
-    <p className={`Base-text ${size}`} style={css}>
-      {children ? children : value}
+    <p className={`Base-text ${size ?? 'med'}`} style={css}>
+      {children ?? value}
     </p>
   );
 };

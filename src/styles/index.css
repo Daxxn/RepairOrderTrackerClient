@@ -1,14 +1,15 @@
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;900&display=swap');
 
 :root {
   --card-radius: 14px;
   --card-border-thickness: 1px;
   --card-border-spacing: 0.2rem;
   --card-margin: 1rem;
-  
+
   --icon-size: 25px;
-  
+
   /*Theme Colors*/
   /* Theme Primary */
   --theme-primary-main: #395089;
@@ -21,19 +22,19 @@
   --theme-secondary-dark: #4b4900;
 
   --card-border-color: #aaa;
-  
+
   --card-background-main: #ddd;
 
   --theme-font-color: #fff;
 
-  --theme-hover-shade-light: rgba(255,255,255,0.1);
-  --theme-hover-shade-dark: rgba(0,0,0, 0.1)
+  --theme-hover-shade-light: rgba(255, 255, 255, 0.1);
+  --theme-hover-shade-dark: rgba(0, 0, 0, 0.1);
 }
 
 body {
   margin: 0;
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

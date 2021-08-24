@@ -8,11 +8,11 @@ import { PayPeriodObjects } from './payPeriodModel';
 const idLen = 24;
 const devMode: boolean = process.env.NODE_ENV === 'development';
 
-const add14Days = (mod: number = 0): number => {
+const add14Days = (mod = 0): number => {
   if (mod === 0) {
     return Date.now();
   }
-  return Date.now() + (14 * 24 * 60 * 60 * 1000 * mod);
+  return Date.now() + 14 * 24 * 60 * 60 * 1000 * mod;
 };
 
 const buildUserTestData = (): UserData | null => {
@@ -27,23 +27,23 @@ const buildUserTestData = (): UserData | null => {
     // console.log(str);
     // return str;
     return createCustomId();
-  }
+  };
 
   const createCustomId = (): string => {
-    var output = '';
+    let output = '';
     for (let i = 0; i < idLen; i++) {
-      var result = rollNumber();
+      const result = rollNumber();
       output += result;
     }
     return output;
-  }
+  };
 
   const rollNumber = (): number => {
-    const rollA =  Math.round(Math.random() * 10);
-    const rollB =  Math.pow(Math.round(Math.random() * 10), 2);
+    const rollA = Math.round(Math.random() * 10);
+    const rollB = Math.round(Math.random() * 10) ** 2;
     const xor = rollA ^ rollB;
     return xor & 9;
-  }
+  };
 
   const ids: string[] = [];
   for (let i = 0; i < 20; i++) {
@@ -58,28 +58,28 @@ const buildUserTestData = (): UserData | null => {
       __v: 0,
       name: 'Cody Lantz',
       techId: 9242,
-      activeJobs: []
+      activeJobs: [],
     },
     [ids[1]]: {
       _id: ids[1],
       __v: 0,
       name: 'Jason Lantz',
       techId: 9243,
-      activeJobs: []
+      activeJobs: [],
     },
     [ids[2]]: {
       _id: ids[2],
       __v: 0,
       name: 'Mikey',
       techId: 1234,
-      activeJobs: []
+      activeJobs: [],
     },
     [ids[3]]: {
       _id: ids[3],
       __v: 0,
       name: 'Victor',
       techId: 7978,
-      activeJobs: []
+      activeJobs: [],
     },
   };
 
@@ -125,10 +125,7 @@ const buildUserTestData = (): UserData | null => {
       roNumber: 111111,
       date: new Date(Date.now()),
       isCompleted: false,
-      jobs: [
-        jobs[ids[4]]._id,
-        jobs[ids[5]]._id,
-      ],
+      jobs: [jobs[ids[4]]._id, jobs[ids[5]]._id],
     },
     [ids[9]]: {
       _id: ids[9],
@@ -136,10 +133,7 @@ const buildUserTestData = (): UserData | null => {
       roNumber: 222222,
       date: new Date(Date.now()),
       isCompleted: false,
-      jobs: [
-        jobs[ids[6]]._id,
-        jobs[ids[7]]._id,
-      ],
+      jobs: [jobs[ids[6]]._id, jobs[ids[7]]._id],
     },
     [ids[10]]: {
       _id: ids[10],
@@ -147,10 +141,7 @@ const buildUserTestData = (): UserData | null => {
       roNumber: 333333,
       date: new Date(Date.now()),
       isCompleted: true,
-      jobs: [
-        jobs[ids[4]]._id,
-        jobs[ids[7]]._id,
-      ],
+      jobs: [jobs[ids[4]]._id, jobs[ids[7]]._id],
     },
   };
 
@@ -160,19 +151,14 @@ const buildUserTestData = (): UserData | null => {
       __v: 0,
       startDate: new Date(add14Days()),
       endDate: new Date(add14Days(1)),
-      repairOrders: [
-        repairOrders[ids[8]]._id,
-        repairOrders[ids[9]]._id,
-      ]
+      repairOrders: [repairOrders[ids[8]]._id, repairOrders[ids[9]]._id],
     },
     [ids[12]]: {
       _id: ids[12],
       __v: 0,
       startDate: new Date(add14Days(1)),
       endDate: new Date(add14Days(2)),
-      repairOrders: [
-        repairOrders[ids[10]]._id,
-      ]
+      repairOrders: [repairOrders[ids[10]]._id],
     },
   };
 
@@ -185,11 +171,8 @@ const buildUserTestData = (): UserData | null => {
     userName: 'Daxxn',
     dateCreated: new Date(Date.now()),
     isAdmin: true,
-    payPeriods: [
-      payPeriods[ids[11]]._id,
-      payPeriods[ids[12]]._id,
-    ]
-  }
+    payPeriods: [payPeriods[ids[11]]._id, payPeriods[ids[12]]._id],
+  };
 
   const data: UserData = {
     user,
@@ -197,11 +180,11 @@ const buildUserTestData = (): UserData | null => {
     jobs,
     payPeriods,
     techs,
-  }
+  };
 
   console.log(data);
 
   return data;
-}
+};
 
 export default buildUserTestData;

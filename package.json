@@ -13,6 +13,7 @@
     "@types/react-bootstrap": "^0.32.26",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
+    "npm-run-all": "^4.1.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
@@ -21,8 +22,13 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "pretty": "prettier --write .",
+    "pre-start": "prettier --write .",
+    "start-react": "react-scripts start",
+    "start": "npm-run-all pre-start start-react",
+    "build": "npm-run-all build-react",
+    "build-react": "react-scripts build",
+    "pretest": "eslint -c ./.eslintconfig.prod.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -46,6 +52,16 @@
   },
   "devDependencies": {
     "@types/bson": "^4.0.5",
-    "bson": "^4.4.1"
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "bson": "^4.4.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "2.3.2"
   }
 }
