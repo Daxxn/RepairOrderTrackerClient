@@ -1,3 +1,4 @@
+import React from 'react';
 import '../../styles/components/login.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import UserModel from '../../models/userModel';

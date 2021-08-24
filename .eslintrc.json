@@ -110,7 +110,17 @@
           {
             "allowForLoopAfterthoughts": true
           }
-        ]
+        ],
+        "no-console": [
+          "warn",
+          {
+            "allow": ["log"]
+          }
+        ],
+        "no-alert": "warn",
+
+        // Only allowed temporarily
+        "@typescript-eslint/ban-ts-comment": "off"
       }
     }
   ]

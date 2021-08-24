@@ -4,16 +4,19 @@ export type RepairOrderObjects = {
   [id: string]: RepairOrderModel;
 };
 
-export default interface RepairOrderModel extends BaseModel {
+interface RepairOrderModel extends BaseModel {
   roNumber: number;
+  flagId: number;
   date: Date;
   isCompleted: boolean;
   jobs: string[];
 }
 
-export default class RepairOrderModel extends BaseModel {
-  //#region Props
-  //#endregion
-  //#region Methods
-  //#endregion
+class RepairOrderModel extends BaseModel {
+  // #region Props
+  // #endregion
+  // #region Methods
+  // #endregion
 }
+
+export default RepairOrderModel;

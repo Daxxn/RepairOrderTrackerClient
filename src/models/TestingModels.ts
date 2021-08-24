@@ -57,29 +57,25 @@ const buildUserTestData = (): UserData | null => {
       _id: ids[0],
       __v: 0,
       name: 'Cody Lantz',
-      techId: 9242,
-      activeJobs: [],
+      techNumber: 9242,
     },
     [ids[1]]: {
       _id: ids[1],
       __v: 0,
       name: 'Jason Lantz',
-      techId: 9243,
-      activeJobs: [],
+      techNumber: 9243,
     },
     [ids[2]]: {
       _id: ids[2],
       __v: 0,
       name: 'Mikey',
-      techId: 1234,
-      activeJobs: [],
+      techNumber: 1234,
     },
     [ids[3]]: {
       _id: ids[3],
       __v: 0,
       name: 'Victor',
-      techId: 7978,
-      activeJobs: [],
+      techNumber: 7978,
     },
   };
 
@@ -87,6 +83,7 @@ const buildUserTestData = (): UserData | null => {
     [ids[4]]: {
       __v: 0,
       _id: ids[4],
+      description: 'Simple Oil Change.',
       assignedTech: techs[ids[0]]._id,
       isRecall: false,
       name: 'Oil Change',
@@ -95,6 +92,7 @@ const buildUserTestData = (): UserData | null => {
     [ids[5]]: {
       __v: 0,
       _id: ids[5],
+      description: 'Replace timing belt and water pump.',
       assignedTech: techs[ids[0]]._id,
       isRecall: false,
       name: 'Timing Belt',
@@ -103,6 +101,7 @@ const buildUserTestData = (): UserData | null => {
     [ids[6]]: {
       __v: 0,
       _id: ids[6],
+      description: 'Replace low-pressure fuel pump.',
       assignedTech: techs[ids[1]]._id,
       isRecall: true,
       name: '20TA02 - Camry',
@@ -111,9 +110,10 @@ const buildUserTestData = (): UserData | null => {
     [ids[7]]: {
       __v: 0,
       _id: ids[7],
+      description: 'Diag squeaking noise from dash.',
       assignedTech: techs[ids[1]]._id,
       isRecall: false,
-      name: 'Squeaky Noise from Dask',
+      name: 'Squeaky Noise from Dash',
       time: 0.1,
     },
   };
@@ -123,6 +123,7 @@ const buildUserTestData = (): UserData | null => {
       _id: ids[8],
       __v: 0,
       roNumber: 111111,
+      flagId: 1,
       date: new Date(Date.now()),
       isCompleted: false,
       jobs: [jobs[ids[4]]._id, jobs[ids[5]]._id],
@@ -131,6 +132,7 @@ const buildUserTestData = (): UserData | null => {
       _id: ids[9],
       __v: 0,
       roNumber: 222222,
+      flagId: 2,
       date: new Date(Date.now()),
       isCompleted: false,
       jobs: [jobs[ids[6]]._id, jobs[ids[7]]._id],
@@ -139,6 +141,7 @@ const buildUserTestData = (): UserData | null => {
       _id: ids[10],
       __v: 0,
       roNumber: 333333,
+      flagId: 3,
       date: new Date(Date.now()),
       isCompleted: true,
       jobs: [jobs[ids[4]]._id, jobs[ids[7]]._id],
@@ -165,12 +168,13 @@ const buildUserTestData = (): UserData | null => {
   const user: UserModel = {
     _id: createId(),
     __v: 0,
-    auth0Id: createId(),
+    email: 'nunjalantz@gmail.com',
     firstName: 'Cody',
     lastName: 'lantz',
     userName: 'Daxxn',
     dateCreated: new Date(Date.now()),
     isAdmin: true,
+    isAuthenticated: false,
     payPeriods: [payPeriods[ids[11]]._id, payPeriods[ids[12]]._id],
   };
 

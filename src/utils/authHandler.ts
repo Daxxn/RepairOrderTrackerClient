@@ -1,12 +1,12 @@
 import UserModel from '../models/userModel';
 
 export default class LoginHandler {
-  //#region Props
+  // #region Props
 
-  //#endregion
+  // #endregion
 
-  //#region Methods
-  static async loginAPI(accessToken: string) {
+  // #region Methods
+  static async loginAPI(accessToken: string): Promise<void> {
     try {
       if (accessToken) {
         const response = await fetch('http://localhost:2000/auth/login', {
@@ -23,7 +23,5 @@ export default class LoginHandler {
       console.log(err);
     }
   }
-
-  static logoutAPI() {}
-  //#endregion
+  // #endregion
 }

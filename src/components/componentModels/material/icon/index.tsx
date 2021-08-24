@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import ErrorMessenger from '../../../../utils/ErrorMessenger';
 import './icon.css';
 
 export interface IconProps {

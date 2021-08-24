@@ -23,7 +23,7 @@ const PayPeriods = (): JSX.Element => {
   return (
     <Card row={2} theme="light">
       <TitleCard>PayPeriods</TitleCard>
-      {user ? (
+      {user !== null ? (
         user.payPeriods.map(ppId => (
           <PayPeriod key={`pay-period-${ppId}`} payPeriod={allpayPeriods[ppId]} />
         ))

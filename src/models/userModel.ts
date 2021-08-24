@@ -28,10 +28,11 @@ export type UserData = {
 
 interface UserModel extends BaseModel {
   userName: string;
+  email: string;
   firstName: string;
   lastName: string;
   dateCreated: Date;
-  auth0Id: string;
+  isAuthenticated: boolean;
   isAdmin: boolean;
   payPeriods: string[];
 }
