@@ -3,7 +3,6 @@ import TechModel from '../../../models/techModel';
 import Card from '../material/card';
 import TitleCard from '../material/titleCard';
 import Text from '../material/text';
-import Jobs from '../jobs';
 
 export interface TechProps {
   tech: TechModel;

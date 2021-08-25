@@ -1,11 +1,10 @@
 import React from 'react';
 import Card from '../material/card';
 import JobModel from '../../../models/jobModel';
-import TechModel, { TechObjects } from '../../../models/techModel';
+import TechModel from '../../../models/techModel';
 import UserModel from '../../../models/userModel';
 import Title from '../material/title';
 import Text from '../material/text';
-import Techs from '../techs';
 import Tech from '../techs/tech';
 
 export interface JobProps {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { PayPeriodObjects } from '../../../models/payPeriodModel';
 import UserModel from '../../../models/userModel';
 import Card from '../material/card';
@@ -13,12 +13,12 @@ export interface PayPeriodProps {
 const PayPeriods = (props: PayPeriodProps): JSX.Element => {
   const { payPeriodIds } = props;
   console.log('PayPeriod Component ', payPeriodIds);
-  const id = 'payperiod-list';
+  const id = 'pay-period-list';
   const allpayPeriods = UserModel.getObjects('PayPeriods') as PayPeriodObjects;
   console.log('PayPeriod Data ', allpayPeriods);
 
   return (
-    <Card row={2} theme="light">
+    <Card row={2} theme="light" key={id}>
       <TitleCard>PayPeriods</TitleCard>
       {payPeriodIds && payPeriodIds.length > 0 ? (
         payPeriodIds.map(ppId => (

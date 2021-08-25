@@ -8,13 +8,6 @@ import authConfig from './.authconfig.json';
 
 ReactDOM.render(
   <>
-    {/* <Auth0Provider
-    domain="dev-6ryc0ksm.us.auth0.com"
-    clientId="cC3XKQ9lV0ayv4WDzMF3nPFacThXL36K"
-    redirectUri="http://localhost:3000/"
-    scope="read:current_user update:current_user_metadata"
-    audience="http://www.repair-order-tracker-api.com"
-  > */}
     <Auth0Provider
       domain={authConfig.authDomain}
       clientId={authConfig.authClientId}

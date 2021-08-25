@@ -13,7 +13,7 @@ export interface RepairOrderProps {
 
 const RepairOrder = (props: RepairOrderProps): JSX.Element => {
   const { repairOrder, parentId } = props;
-  const { jobs, _id } = repairOrder;
+  const { _id } = repairOrder;
   const [ro, setRepairOrder] = useState(repairOrder);
   const componentId = `repair-order-item-${_id}-${parentId ?? ''}`;
 
@@ -28,10 +28,10 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
 
   return (
     <Card>
-      <Title>RO {repairOrder.roNumber}</Title>
-      <Text>Date {repairOrder.date.toDateString()}</Text>
-      <Text>Date {repairOrder.date.toDateString()}</Text>
-      <Jobs jobIds={jobs} parentId={_id} />
+      <Title>RO {ro.roNumber}</Title>
+      <Text>Date {ro.date.toDateString()}</Text>
+      <Text>Date {ro.date.toDateString()}</Text>
+      <Jobs jobIds={ro.jobs} parentId={_id} />
     </Card>
   );
 };

@@ -5,12 +5,9 @@ import UserModel, { UserData } from './models/userModel';
 import buildUserTestData from './models/TestingModels';
 import PayPeriods from './components/componentModels/payPeriods';
 import Container from './components/componentModels/material/container';
-import Techs from './components/componentModels/techs';
-import Accordian from './components/componentModels/material/accordian';
 import Config from './utils/config';
-import './styles/App.css';
-import ErrorBoundary from './components/componentModels/material/errorBoundary';
 import Card from './components/componentModels/material/card';
+import './styles/App.css';
 
 const config = Config.get();
 
@@ -26,8 +23,6 @@ const loadUserData = (data: UserData | null) => {
 
 const App = (): JSX.Element => {
   const { user, getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
-  // const [isLoaded, setIsLoaded] = useState<boolean>(!isLoading);
-  // const [isAuth, setIsAuth] = useState<boolean>(isAuthenticated);
 
   const [mainUser, setuser] = useState<UserModel | null>(UserModel.getUser());
 
@@ -85,12 +80,6 @@ const App = (): JSX.Element => {
       .catch(err => console.log(err));
   }, [getAccessTokenSilently, user?.sub]);
 
-  // useEffect(() => {
-  //   setIsLoaded(!isLoading)
-  //   setIsAuth(isAuthenticated);
-  // }, [isLoading, isAuthenticated]);
-  // #endregion
-
   return (
     <div className="App">
       <Container flexDirection="column">
@@ -99,26 +88,6 @@ const App = (): JSX.Element => {
           title="Repair Tracker"
           handleLoadTestData={handleLoadTestData}
         />
-        {/* {isLoading ? (
-          <>
-            {isAuthenticated ? (
-              <>
-                <ErrorBoundary>
-                  <PayPeriods payPeriodIds={mainUser?.payPeriods} />
-                </ErrorBoundary>
-                <ErrorBoundary>
-                  <Accordian justify="space-between">
-                    <Techs />
-                  </Accordian>
-                </ErrorBoundary>
-              </>
-            ) : (
-              <Card>No user is logged in.</Card>
-            )}
-          </>
-        ) : (
-          <Card theme="dark">Loading...</Card>
-        )} */}
         {!isLoading ? (
           <>
             {isAuthenticated ? (
