@@ -62,6 +62,7 @@ const App = (): JSX.Element => {
                 lastName: user.family_name,
               }),
             });
+
             const userData = (await apiResponse.json()) as UserData;
 
             console.log(user);

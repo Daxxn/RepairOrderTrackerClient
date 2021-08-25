@@ -1,4 +1,4 @@
-export type ButtonType = 'primary' | 'secondary';
+export type ButtonTheme = 'primary' | 'secondary';
 export type ThemeType = 'light' | 'dark';
 export type TextSizeType = 'small' | 'med' | 'large';
 export type FlexDirType = 'column' | 'column-reverse' | 'row' | 'row-reverse';

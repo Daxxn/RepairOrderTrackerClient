@@ -16,11 +16,11 @@ const LoginButton = (props: LoginProps): JSX.Element => {
   return (
     <>
       {currentUsername ? (
-        <Button type="dark" onClick={() => logout({ returnTo: window.location.origin })}>
+        <Button theme="dark" onClick={() => logout({ returnTo: window.location.origin })}>
           {user ? `Logout ${user.userName}` : 'Logout'}
         </Button>
       ) : (
-        <Button type="dark" onClick={() => loginWithRedirect()}>
+        <Button theme="dark" onClick={() => loginWithRedirect()}>
           Login
         </Button>
       )}

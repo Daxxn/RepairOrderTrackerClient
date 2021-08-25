@@ -17,6 +17,10 @@ class RepairOrderModel {
   _id = '';
   __v = 0;
   roNumber = 0;
+  flagId = 0;
+  date: Date = new Date(Date.now());
+  isCompleted = false;
+  jobs: string[] = [];
   // #endregion
   // #region Methods
   // #endregion

@@ -160,8 +160,11 @@ class UserModel {
     this.updateModelObservers(type, data);
   }
 
-  static getModel(type: ModelType, id: string): BaseModel {
-    return this.modelData[type][id];
+  static getModel(type: ModelType, id: string): BaseModel | null {
+    if (this.modelData[type][id]) {
+      return this.modelData[type][id];
+    }
+    return null;
   }
 
   // #region Observer Pattern Methods

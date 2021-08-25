@@ -18,7 +18,7 @@ const PayPeriods = (props: PayPeriodProps): JSX.Element => {
   console.log('PayPeriod Data ', allpayPeriods);
 
   return (
-    <Card row={2} theme="light" key={id}>
+    <Card theme="light" key={id}>
       <TitleCard>PayPeriods</TitleCard>
       {payPeriodIds && payPeriodIds.length > 0 ? (
         payPeriodIds.map(ppId => (

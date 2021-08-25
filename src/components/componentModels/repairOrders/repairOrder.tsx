@@ -5,17 +5,25 @@ import Title from '../material/title';
 import Text from '../material/text';
 import Jobs from '../jobs';
 import UserModel from '../../../models/userModel';
+import DateViewer from '../material/dateViewer';
+import Flag from '../flag';
 
 export interface RepairOrderProps {
   parentId?: string;
-  repairOrder: RepairOrderModel;
+  repairOrderId: string;
 }
 
 const RepairOrder = (props: RepairOrderProps): JSX.Element => {
-  const { repairOrder, parentId } = props;
-  const { _id } = repairOrder;
+  const { repairOrderId, parentId } = props;
+  const repairOrder = UserModel.getModel(
+    'RepairOrders',
+    repairOrderId
+  ) as RepairOrderModel;
+  if (!repairOrder) {
+    return <Text>Repair Order Load Failure</Text>;
+  }
   const [ro, setRepairOrder] = useState(repairOrder);
-  const componentId = `repair-order-item-${_id}-${parentId ?? ''}`;
+  const componentId = `repair-order-item-${ro._id}-${parentId ?? ''}`;
 
   useEffect(() => {
     UserModel.appendModelObserver(componentId, 'RepairOrders', updatedRO => {
@@ -29,9 +37,10 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
   return (
     <Card>
       <Title>RO {ro.roNumber}</Title>
-      <Text>Date {ro.date.toDateString()}</Text>
-      <Text>Date {ro.date.toDateString()}</Text>
-      <Jobs jobIds={ro.jobs} parentId={_id} />
+      <DateViewer date={ro.date} />
+      <Text>{ro.isCompleted ? 'Completed' : 'Not Completed'}</Text>
+      <Flag flagNumber={ro.flagId} />
+      <Jobs jobIds={ro.jobs} parentId={ro._id} />
     </Card>
   );
 };

@@ -88,6 +88,7 @@ const buildUserTestData = (): UserData | null => {
       isRecall: false,
       name: 'Oil Change',
       time: 0.5,
+      isCompleted: false,
     },
     [ids[5]]: {
       __v: 0,
@@ -97,6 +98,7 @@ const buildUserTestData = (): UserData | null => {
       isRecall: false,
       name: 'Timing Belt',
       time: 4.5,
+      isCompleted: true,
     },
     [ids[6]]: {
       __v: 0,
@@ -106,6 +108,7 @@ const buildUserTestData = (): UserData | null => {
       isRecall: true,
       name: '20TA02 - Camry',
       time: 1.5,
+      isCompleted: true,
     },
     [ids[7]]: {
       __v: 0,
@@ -115,6 +118,7 @@ const buildUserTestData = (): UserData | null => {
       isRecall: false,
       name: 'Squeaky Noise from Dash',
       time: 0.1,
+      isCompleted: false,
     },
   };
 

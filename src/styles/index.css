@@ -47,6 +47,7 @@ code {
 
 .light {
   background-color: var(--theme-primary-light);
+  color: var(--theme-font-color);
 }
 
 .dark {
@@ -61,4 +62,9 @@ code {
 .icon {
   width: 20px;
   height: 20px;
+}
+
+.label {
+  margin: 0.1rem;
+  padding: 0.1rem;
 }

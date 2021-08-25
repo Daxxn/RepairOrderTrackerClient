@@ -9,6 +9,7 @@ interface JobModel extends BaseModel {
   description: string;
   time: number;
   isRecall: boolean;
+  isCompleted: boolean;
   assignedTech: string | null;
 }
 
@@ -20,6 +21,7 @@ class JobModel {
   description = '';
   time = 0;
   isRecall = false;
+  isCompleted = false;
   assignedTech: string | null = null;
   // #endregion
   // #region Methods

@@ -5,6 +5,7 @@ import Card from '../material/card';
 import TitleCard from '../material/titleCard';
 import Accordian from '../material/accordian';
 import UserModel from '../../../models/userModel';
+import DateViewer from '../material/dateViewer';
 
 export interface PayPeriodProps {
   payPeriod: PayPeriodModel;
@@ -27,6 +28,10 @@ const PayPeriod = (props: PayPeriodProps): JSX.Element => {
   return (
     <Card>
       <TitleCard>Pay Period</TitleCard>
+      <p className="label">Start Date</p>
+      <DateViewer date={payPeriod.startDate} />
+      <p className="label">End Date</p>
+      <DateViewer date={payPeriod.endDate} />
       <Accordian flexDirection="row" buttonPosition="right">
         <RepairOrders
           parentPayPeriodId={payPeriod._id}

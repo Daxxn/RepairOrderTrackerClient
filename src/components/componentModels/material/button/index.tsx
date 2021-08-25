@@ -7,18 +7,24 @@ export interface ButtonProps {
   className?: string;
   children?: ReactNode;
   content?: string;
-  type?: ThemeType;
+  theme?: ThemeType;
 }
 
 const Button = (props: ButtonProps): JSX.Element => {
-  const { onClick, children, content, type, className } = props;
+  const { onClick, children, content, theme, className } = props;
 
   let cssClass = className;
   if (!cssClass) {
-    cssClass = `Base-button ${type ?? ''}`;
+    cssClass = `Base-button ${theme ?? ''}`;
   }
   return (
-    <button type="button" onClick={onClick} className={cssClass}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`Base-button${className ? ` ${className}` : ''}${
+        theme ? ` ${theme}` : ''
+      }`}
+    >
       {children ?? content}
     </button>
   );

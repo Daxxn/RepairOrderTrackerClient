@@ -4,6 +4,7 @@
   border-spacing: var(--card-border-spacing);
 
   background-color: var(--card-background-main);
+  color: black;
 
   margin: var(--card-margin);
 }
