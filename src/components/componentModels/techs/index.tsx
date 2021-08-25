@@ -7,10 +7,11 @@ import Tech from './tech';
 
 export interface TechsProps {
   techIds?: string[];
+  displayAllTechs?: boolean;
 }
 
 const Techs = (props: TechsProps): JSX.Element => {
-  const { techIds } = props;
+  const { techIds, displayAllTechs } = props;
   const techs = UserModel.getObjects('Techs') as TechObjects;
 
   return (
@@ -19,7 +20,7 @@ const Techs = (props: TechsProps): JSX.Element => {
         techIds.map(id => <Tech tech={techs[id]} />)
       ) : (
         <>
-          {techs ? (
+          {techs && displayAllTechs ? (
             Object.values(techs).map(tech => <Tech tech={tech} />)
           ) : (
             <Text>No Techs found.</Text>

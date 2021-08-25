@@ -9,11 +9,18 @@ interface JobModel extends BaseModel {
   description: string;
   time: number;
   isRecall: boolean;
-  assignedTech: string;
+  assignedTech: string | null;
 }
 
-class JobModel extends BaseModel {
+class JobModel {
   // #region Props
+  _id = '';
+  __v = 0;
+  name = '';
+  description = '';
+  time = 0;
+  isRecall = false;
+  assignedTech: string | null = null;
   // #endregion
   // #region Methods
   // #endregion

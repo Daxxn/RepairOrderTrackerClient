@@ -23,6 +23,7 @@
   },
   "scripts": {
     "pretty": "prettier --write .",
+    "lint": "eslint --fix",
     "pre-start": "prettier --write .",
     "start-react": "react-scripts start",
     "start": "npm-run-all pre-start start-react",

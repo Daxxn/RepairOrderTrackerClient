@@ -1,16 +1,40 @@
+import Messenger from '../utils/ErrorMessenger';
 import { BaseModel } from './baseModel';
-import { JobObjects } from './jobModel';
-import { PayPeriodObjects } from './payPeriodModel';
-import { RepairOrderObjects } from './repairOrderModel';
-import { TechObjects } from './techModel';
+import JobModel, { JobObjects } from './jobModel';
+import PayPeriodModel, { PayPeriodObjects } from './payPeriodModel';
+import RepairOrderModel, { RepairOrderObjects } from './repairOrderModel';
+import TechModel, { TechObjects } from './techModel';
 
 export type UserCallback = (updatedUser: UserModel | null) => void;
+export type ModelCallback = (updatedModel: BaseModel) => void;
+// export type ObjectCallback = (updatedObjects: BaseObjects) => void;
 
-type UserObserver = {
-  [id: string]: UserCallback;
+type UserObservers = {
+  userListeners: {
+    [id: string]: UserCallback;
+  };
+  objectListeners: ModelObserver;
 };
 
+type ModelObserver = {
+  [key in ModelType]: {
+    [id: string]: ModelCallback;
+  };
+};
+
+// type UserModelObservers = {
+//   payPeriodObservers: ModelObserver<PayPeriodModel>;
+//   repairOrderObservers: ModelObserver<RepairOrderModel>;
+//   jobObservers: ModelObserver<JobModel>;
+//   techObservers: ModelObserver<TechModel>;
+// };
+
+// type UserModelObservers = {
+//   [key in ModelType]: ModelObserver;
+// };
+
 export type ModelType = 'PayPeriods' | 'RepairOrders' | 'Jobs' | 'Techs';
+export type BaseType = PayPeriodModel | RepairOrderModel | JobModel | TechModel;
 
 export type ModelObjects =
   | PayPeriodObjects
@@ -26,6 +50,10 @@ export type UserData = {
   jobs: JobObjects;
 };
 
+export type ModelData = {
+  [key in ModelType]: ModelObjects;
+};
+
 interface UserModel extends BaseModel {
   userName: string;
   email: string;
@@ -37,17 +65,44 @@ interface UserModel extends BaseModel {
   payPeriods: string[];
 }
 
-class UserModel extends BaseModel {
+class UserModel {
+  _id = '';
+  __v = 0;
   // #region Props
-  private static observers: UserObserver = {};
+  private static userObservers: UserObservers = {
+    userListeners: {},
+    objectListeners: {
+      PayPeriods: {},
+      RepairOrders: {},
+      Jobs: {},
+      Techs: {},
+    },
+  };
   private static user: UserModel | null = null;
-  private static payPeriods: PayPeriodObjects;
-  private static repairOrders: RepairOrderObjects;
-  private static jobs: JobObjects;
-  private static techs: TechObjects;
+  private static modelData: ModelData = {
+    PayPeriods: {},
+    RepairOrders: {},
+    Jobs: {},
+    Techs: {},
+  };
   // #endregion
 
   // #region Methods
+
+  // #region Private Methods
+  private static initObservers() {
+    this.userObservers = {
+      userListeners: {},
+      objectListeners: {
+        PayPeriods: {},
+        RepairOrders: {},
+        Jobs: {},
+        Techs: {},
+      },
+    };
+  }
+  // #endregion
+
   static getUser(): UserModel | null {
     return this.user;
   }
@@ -57,62 +112,106 @@ class UserModel extends BaseModel {
 
     // Send POST request to API
 
-    this.update(user);
+    this.updateUserObservers(user);
+  }
+
+  static setUserData(data: UserData): void {
+    this.user = data.user;
+
+    this.modelData.PayPeriods = data.payPeriods;
+    this.modelData.RepairOrders = data.repairOrders;
+    this.modelData.Jobs = data.jobs;
+    this.modelData.Techs = data.techs;
+
+    this.updateUserObservers(data.user);
   }
 
   static getObjects(type: ModelType): ModelObjects {
-    switch (type) {
-      case 'PayPeriods':
-        return this.payPeriods;
-      case 'RepairOrders':
-        return this.repairOrders;
-      case 'Techs':
-        return this.techs;
-      case 'Jobs':
-        return this.jobs;
-      default:
-        throw new Error(`Unknown model type: ${type}`);
-    }
+    return this.modelData[type];
   }
 
   static setObjects(type: ModelType, data: ModelObjects): void {
-    switch (type) {
-      case 'PayPeriods':
-        this.payPeriods = data as PayPeriodObjects;
-        break;
-      case 'RepairOrders':
-        this.repairOrders = data as RepairOrderObjects;
-        break;
-      case 'Techs':
-        this.techs = data as TechObjects;
-        break;
-      case 'Jobs':
-        this.jobs = data as JobObjects;
-        break;
-      default:
-        throw new Error(`Unknown model type: ${type}`);
+    if (this.modelData) {
+      this.modelData[type] = data;
     }
+  }
+
+  static setModel(type: ModelType, data: BaseType): void {
+    // switch (type) {
+    //   case 'PayPeriods':
+    //     this.payPeriods[data._id] = data as PayPeriodModel;
+    //     break;
+    //   case 'RepairOrders':
+    //     this.repairOrders[data._id] = data as RepairOrderModel;
+    //     break;
+    //   case 'Techs':
+    //     this.techs[data._id] = data as TechModel;
+    //     break;
+    //   case 'Jobs':
+    //     this.jobs[data._id] = data as JobModel;
+    //     break;
+    //   default:
+    //     throw new Error(`Unknown model type: ${type}`);
+    // }
+
+    if (this.modelData) {
+      this.modelData[type][data._id] = data;
+    }
+
+    this.updateModelObservers(type, data);
+  }
+
+  static getModel(type: ModelType, id: string): BaseModel {
+    return this.modelData[type][id];
   }
 
   // #region Observer Pattern Methods
-  static append(id: string, callback: UserCallback): void {
-    if (this.observers) {
-      if (!this.observers[id]) {
-        this.observers[id] = callback;
+  static appendUserObserver(id: string, callback: UserCallback): void {
+    if (this.userObservers) {
+      if (!this.userObservers.userListeners[id]) {
+        this.userObservers.userListeners[id] = callback;
+      }
+    } else {
+      this.initObservers();
+    }
+  }
+
+  static appendModelObserver(id: string, type: ModelType, callback: ModelCallback): void {
+    if (this.userObservers) {
+      if (this.userObservers.objectListeners[type]) {
+        if (!this.userObservers.objectListeners[type][id]) {
+          this.userObservers.objectListeners[type][id] = callback;
+        }
       }
     }
   }
 
-  static remove(id: string): void {
-    if (this.observers) {
-      if (!this.observers[id]) {
-        delete this.observers[id];
+  static removeUserObserver(id: string): void {
+    if (this.userObservers) {
+      if (this.userObservers.userListeners[id]) {
+        delete this.userObservers.userListeners[id];
       }
     }
   }
 
-  static update(updatedUser: UserModel | null): void {
-    Object.values(this.observers).forEach(o => o(updatedUser));
+  static removeModelObservers(id: string, type: ModelType): void {
+    if (this.userObservers) {
+      if (this.userObservers.objectListeners[type]) {
+        if (this.userObservers.objectListeners[type][id]) {
+          delete this.userObservers.objectListeners[type][id];
+        }
+      }
+    }
+  }
+
+  private static updateUserObservers(updatedUser: UserModel | null): void {
+    Object.values(this.userObservers.userListeners).forEach(o => o(updatedUser));
+  }
+
+  private static updateModelObservers(type: ModelType, updatedModel: BaseModel): void {
+    Object.values(this.userObservers.objectListeners[type]).forEach(obs =>
+      obs(updatedModel)
+    );
   }
   // #endregion
   // #endregion

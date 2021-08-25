@@ -3,6 +3,10 @@ export type Credentials = {
   password: string;
 };
 
+export type BaseObjects = {
+  [id: string]: BaseModel;
+};
+
 export interface BaseModel {
   _id: string;
   __v: number;

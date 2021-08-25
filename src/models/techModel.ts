@@ -9,8 +9,12 @@ interface TechModel extends BaseModel {
   techNumber: number;
 }
 
-class TechModel extends BaseModel {
+class TechModel {
   // #region Props
+  _id = '';
+  __v = 0;
+  name = '';
+  techNumber = 0;
   // #endregion
   // #region Methods
   // #endregion

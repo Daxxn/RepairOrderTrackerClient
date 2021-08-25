@@ -12,8 +12,11 @@ interface RepairOrderModel extends BaseModel {
   jobs: string[];
 }
 
-class RepairOrderModel extends BaseModel {
+class RepairOrderModel {
   // #region Props
+  _id = '';
+  __v = 0;
+  roNumber = 0;
   // #endregion
   // #region Methods
   // #endregion

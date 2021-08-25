@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth0, User } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react';
 import MainMenuBar from './components/menuBar';
 import UserModel, { UserData } from './models/userModel';
 import buildUserTestData from './models/TestingModels';
-import AuthHandler from './utils/authHandler';
 import PayPeriods from './components/componentModels/payPeriods';
 import Container from './components/componentModels/material/container';
 import Techs from './components/componentModels/techs';
@@ -26,13 +25,17 @@ const loadUserData = (data: UserData | null) => {
 };
 
 const App = (): JSX.Element => {
+  const { user, getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
+  // const [isLoaded, setIsLoaded] = useState<boolean>(!isLoading);
+  // const [isAuth, setIsAuth] = useState<boolean>(isAuthenticated);
+
   const [mainUser, setuser] = useState<UserModel | null>(UserModel.getUser());
 
   useEffect(() => {
-    UserModel.append('app', updatedUser => {
+    UserModel.appendUserObserver('app', updatedUser => {
       setuser(updatedUser);
     });
-    return () => UserModel.remove('app');
+    return () => UserModel.removeUserObserver('app');
   }, []);
 
   const handleLoadTestData = () => {
@@ -42,7 +45,6 @@ const App = (): JSX.Element => {
   };
 
   // #region Auth0 API Call Hook
-  const { user, getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
   useEffect(() => {
     const currentUser = UserModel.getUser();
     const getUserMetadata = async () => {
@@ -51,7 +53,7 @@ const App = (): JSX.Element => {
           const accessToken = await getAccessTokenSilently();
 
           if (user) {
-            const apiResponse = await fetch(`http://localhost:2000/api/users/`, {
+            const apiResponse = await fetch(`http://localhost:2000/api/users`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -59,18 +61,18 @@ const App = (): JSX.Element => {
                 'Authorization': `Bearer ${accessToken}`,
               },
               body: JSON.stringify({
-                email: `${user?.email}`,
-                userName: user?.preferred_username,
+                email: user.email,
+                userName: user.preferred_username,
                 firstName: user.given_name,
                 lastName: user.family_name,
               }),
             });
-            const userModel = (await apiResponse.json()) as UserModel;
+            const userData = (await apiResponse.json()) as UserData;
 
             console.log(user);
-            console.log(userModel);
+            console.log(userData);
 
-            UserModel.setUser(userModel);
+            UserModel.setUserData(userData);
           }
         }
       } catch (e) {
@@ -82,6 +84,11 @@ const App = (): JSX.Element => {
       .then()
       .catch(err => console.log(err));
   }, [getAccessTokenSilently, user?.sub]);
+
+  // useEffect(() => {
+  //   setIsLoaded(!isLoading)
+  //   setIsAuth(isAuthenticated);
+  // }, [isLoading, isAuthenticated]);
   // #endregion
 
   return (
@@ -92,12 +99,12 @@ const App = (): JSX.Element => {
           title="Repair Tracker"
           handleLoadTestData={handleLoadTestData}
         />
-        {isLoading ? (
+        {/* {isLoading ? (
           <>
             {isAuthenticated ? (
               <>
                 <ErrorBoundary>
-                  <PayPeriods />
+                  <PayPeriods payPeriodIds={mainUser?.payPeriods} />
                 </ErrorBoundary>
                 <ErrorBoundary>
                   <Accordian justify="space-between">
@@ -111,12 +118,28 @@ const App = (): JSX.Element => {
           </>
         ) : (
           <Card theme="dark">Loading...</Card>
+        )} */}
+        {!isLoading ? (
+          <>
+            {isAuthenticated ? (
+              <>
+                {mainUser !== null ? (
+                  <PayPeriods payPeriodIds={mainUser.payPeriods} />
+                ) : (
+                  <Card>
+                    ERROR : User is logged in but the <code>mainUser</code>s state is not
+                    set properly!
+                  </Card>
+                )}
+              </>
+            ) : (
+              <Card theme="light">Not Logged In.</Card>
+            )}
+          </>
+        ) : (
+          <Card theme="dark">Loading...</Card>
         )}
       </Container>
-      {/* <div className="App-container">
-        <div className="App-body-container">
-        </div>
-      </div> */}
     </div>
   );
 };

@@ -1,26 +1,46 @@
 import React from 'react';
 import Card from '../material/card';
 import JobModel from '../../../models/jobModel';
-import { TechObjects } from '../../../models/techModel';
+import TechModel, { TechObjects } from '../../../models/techModel';
 import UserModel from '../../../models/userModel';
 import Title from '../material/title';
 import Text from '../material/text';
+import Techs from '../techs';
+import Tech from '../techs/tech';
 
 export interface JobProps {
+  parentId?: string;
   job: JobModel;
 }
 
+const assignedTechFab = (jobId: string, techId: string | null) => {
+  if (!techId) {
+    return '';
+  }
+  const tech = UserModel.getModel('Techs', techId) as TechModel;
+  if (tech) {
+    return (
+      <Card>
+        <Tech tech={tech} key={`assigned-tech-${jobId}`} />
+      </Card>
+    );
+  }
+  return '';
+};
+
 const Job = (props: JobProps): JSX.Element => {
-  const { job } = props;
-  const techs = UserModel.getObjects('Techs') as TechObjects;
+  const { job, parentId } = props;
+  const { _id, assignedTech, name, time, isRecall, description } = job;
+  const componentId = `job-item-${parentId ?? ''}`;
 
   return (
-    <Card>
-      <Title>{job.name}</Title>
+    <Card key={componentId}>
+      <Title>{name}</Title>
       <Card>
-        <Text>{job.time}</Text>
-        {job.isRecall ? <Text>recall</Text> : ''}
-        <Card>{techs[job.assignedTech].name}</Card>
+        <Text>{time}</Text>
+        <Text>{description}</Text>
+        {isRecall ? <Text>recall</Text> : ''}
+        {assignedTechFab(_id, assignedTech)}
       </Card>
     </Card>
   );
