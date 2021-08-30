@@ -1,0 +1,9 @@
+.Base-error-boundary {
+  border: solid red 1.5px;
+  padding: 0.15rem;
+  margin: 0.1rem;
+}
+
+.Details-error-boundary {
+  white-space: pre-wrap;
+}

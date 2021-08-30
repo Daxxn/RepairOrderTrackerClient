@@ -1,6 +1,4 @@
 import React from 'react';
-import UserModel from '../../../models/userModel';
-import { RepairOrderObjects } from '../../../models/repairOrderModel';
 import RepairOrder from './repairOrder';
 import Card from '../material/card';
 import Text from '../material/text';
@@ -12,16 +10,17 @@ export interface RepairOrdersProps {
 
 const RepairOrders = (props: RepairOrdersProps): JSX.Element => {
   const { repairOrderIds, parentPayPeriodId } = props;
-  const repairOrders = UserModel.getObjects('RepairOrders') as RepairOrderObjects;
-  
+
   return (
-    <Card >
-      {repairOrderIds && repairOrderIds.length > 0 ? repairOrderIds.map(id => (
-        <RepairOrder
-          key={`repair-order-${id}-${parentPayPeriodId ? parentPayPeriodId : ''}`}
-          repairOrder={repairOrders[id]}
-        />
-      )): (
+    <Card>
+      {repairOrderIds && repairOrderIds.length > 0 ? (
+        repairOrderIds.map(id => (
+          <RepairOrder
+            key={`repair-order-${id}-${parentPayPeriodId ?? ''}`}
+            repairOrderId={id}
+          />
+        ))
+      ) : (
         <Text>No Repair Orders...</Text>
       )}
     </Card>

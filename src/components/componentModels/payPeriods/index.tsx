@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { PayPeriodObjects } from '../../../models/payPeriodModel';
 import UserModel from '../../../models/userModel';
 import Card from '../material/card';
@@ -6,30 +6,26 @@ import Text from '../material/text';
 import TitleCard from '../material/titleCard';
 import PayPeriod from './PayPeriod';
 
-export interface PayPeriodProps {}
+export interface PayPeriodProps {
+  payPeriodIds: string[] | null;
+}
 
 const PayPeriods = (props: PayPeriodProps): JSX.Element => {
-  const id = 'payperiod-list';
+  const { payPeriodIds } = props;
+  console.log('PayPeriod Component ', payPeriodIds);
+  const id = 'pay-period-list';
   const allpayPeriods = UserModel.getObjects('PayPeriods') as PayPeriodObjects;
-  const [user, setUser] = useState<UserModel | null>(UserModel.getUser());
-
-  useEffect(() => {
-    UserModel.append(id, (updatedUser) => {
-      setUser(updatedUser);
-    });
-    return () => {
-      UserModel.remove(id);
-    }
-  }, []);
+  console.log(allpayPeriods);
+  console.log('PayPeriod Data ', allpayPeriods);
 
   return (
-    <Card row={2} theme="light">
-      <TitleCard>
-        PayPeriods
-      </TitleCard>
-      {user ? user.payPeriods.map(id => (
-        <PayPeriod key={`pay-period-${id}`} payPeriod={allpayPeriods[id]} />
-      )) : (
+    <Card theme="light" key={id}>
+      <TitleCard>PayPeriods</TitleCard>
+      {allpayPeriods && payPeriodIds && payPeriodIds.length > 0 ? (
+        payPeriodIds.map(ppId => (
+          <PayPeriod key={`pay-period-${ppId}`} payPeriod={allpayPeriods[ppId]} />
+        ))
+      ) : (
         <Text size="small">Nothing...</Text>
       )}
     </Card>

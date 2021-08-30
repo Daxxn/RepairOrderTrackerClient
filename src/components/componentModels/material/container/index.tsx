@@ -10,20 +10,16 @@ export interface ContainerProps {
 }
 
 const Container = (props: ContainerProps): JSX.Element => {
-  const {
-    children,
-    className,
-    flexDirection,
-  } = props;
+  const { children, className, flexDirection } = props;
 
-  //#region CSS
+  // #region CSS
   const css: CSSProperties = {
-    flexDirection: flexDirection ? flexDirection : undefined,
+    flexDirection: flexDirection ?? undefined,
   };
-  //#endregion
+  // #endregion
 
   return (
-    <div className={`${className ? className : 'Base-container'}`} style={css}>
+    <div className={`Base-container${className ? ` ${className}` : ''}`} style={css}>
       {children}
     </div>
   );

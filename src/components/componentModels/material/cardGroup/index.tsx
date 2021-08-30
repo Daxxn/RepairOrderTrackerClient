@@ -14,7 +14,7 @@ const CardGroup = (props: CardGroupProps): JSX.Element => {
   return (
     <div
       className={`Base-card-group${className ? ` ${className}` : ''}`}
-      style={{flexDirection: direction}}
+      style={{ flexDirection: direction }}
     >
       {children}
     </div>

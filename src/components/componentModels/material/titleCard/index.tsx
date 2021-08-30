@@ -12,10 +12,12 @@ export interface TitleCardProps {
 
 const TitleCard = (props: TitleCardProps): JSX.Element => {
   const { value, children, theme, size } = props;
-  
+
   return (
     <div className={`Base-title-card ${theme}`}>
-      <Title value={value} children={children} size={size} />
+      <Title value={value} size={size}>
+        {children}
+      </Title>
     </div>
   );
 };

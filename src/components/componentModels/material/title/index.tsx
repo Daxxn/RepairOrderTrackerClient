@@ -26,8 +26,8 @@ const Title = (props: TitleProps): JSX.Element => {
   };
 
   return (
-    <h1 className={`Base-title ${size} ${theme ? theme : ''}`} style={css}>
-      {children ? children : value}
+    <h1 className={`Base-title ${size} ${theme ?? ''}`} style={css}>
+      {children ?? value}
     </h1>
   );
 };

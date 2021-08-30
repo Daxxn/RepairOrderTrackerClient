@@ -1,0 +1,7 @@
+{
+  "defaultImageAltText": "Image not found or not loaded correctly.",
+  "unknownArgumentType": "Provided type does not match required argument type",
+  "loading": "Loading...",
+  "userNotLoggedIn": "Login to get your data.",
+  "loginToSave": "Login to save your data."
+}

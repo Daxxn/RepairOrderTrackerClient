@@ -13,12 +13,14 @@ export interface JobsProps {
 const Jobs = (props: JobsProps): JSX.Element => {
   const { jobIds, parentId } = props;
   const jobs = UserModel.getObjects('Jobs') as JobObjects;
-  
+
   return (
     <Container flexDirection="column">
-      {jobIds && jobIds.length > 0 ? jobIds.map(id => (
-        <Job key={`job-${id}-${parentId ? parentId : ''}`} job={jobs[id]} />
-      )): (
+      {jobIds && jobIds.length > 0 ? (
+        jobIds.map(id => (
+          <Job key={`job-${id}-${parentId ? `${parentId}` : ''}`} job={jobs[id]} />
+        ))
+      ) : (
         <Text>No Jobs...</Text>
       )}
     </Container>

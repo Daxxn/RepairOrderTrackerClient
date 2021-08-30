@@ -1,7 +1,11 @@
 export type Credentials = {
   username: string;
   password: string;
-}
+};
+
+export type BaseObjects = {
+  [id: string]: BaseModel;
+};
 
 export interface BaseModel {
   _id: string;
@@ -9,6 +13,6 @@ export interface BaseModel {
 }
 
 export class BaseModel {
-  _id: string = '';
-  __v: number = 0;
+  _id = '';
+  __v = 0;
 }

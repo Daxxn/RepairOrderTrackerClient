@@ -1,13 +1,9 @@
 import React from 'react';
 import UserModel from '../../models/userModel';
 
-export interface UserMenuProps {
-  
-}
-
-const UserMenu = (props: UserMenuProps): JSX.Element => {
+const UserMenu = (): JSX.Element => {
   const user = UserModel.getUser();
-  
+
   return (
     <div>
       {user ? (

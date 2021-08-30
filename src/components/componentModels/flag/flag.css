@@ -1,0 +1,5 @@
+.Base-flag {
+  /* border: solid 1.5px var(--theme-secondary-dark); */
+  background-color: var(--theme-secondary-light);
+  color: var(--theme-font-color);
+}

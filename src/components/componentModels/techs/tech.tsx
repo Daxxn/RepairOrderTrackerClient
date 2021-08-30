@@ -3,7 +3,6 @@ import TechModel from '../../../models/techModel';
 import Card from '../material/card';
 import TitleCard from '../material/titleCard';
 import Text from '../material/text';
-import Jobs from '../jobs';
 
 export interface TechProps {
   tech: TechModel;
@@ -11,13 +10,12 @@ export interface TechProps {
 
 const Tech = (props: TechProps): JSX.Element => {
   const { tech } = props;
-  const { _id, name, techId, activeJobs } = tech;
-  
+  const { _id, name, techNumber } = tech;
+
   return (
-    <Card>
+    <Card key={`tech-item-${_id}`}>
       <TitleCard>{name}</TitleCard>
-      <Text>{techId}</Text>
-      <Jobs jobIds={activeJobs} parentId={_id} />
+      <Text>{techNumber}</Text>
     </Card>
   );
 };

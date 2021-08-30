@@ -3,5 +3,5 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   position: static;
-  background-color: var(--theme-primary-main);
+  background-color: var(--theme-primary-dark);
 }

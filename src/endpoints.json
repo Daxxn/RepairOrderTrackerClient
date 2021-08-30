@@ -1,0 +1,22 @@
+{
+  "apiEndpoints": {
+    "PayPeriods": "pay-periods/",
+    "RepairOrders": "repair-orders/",
+    "Jobs": "jobs/",
+    "Techs": "techs/",
+    "Flags": "flags/"
+  },
+  "userEndpoints": {
+    "root": "",
+    "userName": "username/",
+    "email": "email/",
+    "data": "data/",
+    "authId": "auth-id/"
+  },
+  "authEndpoints": {
+    "login": "login/",
+    "logout": "logout/",
+    "register": "register/"
+  },
+  "rootUrl": "http://localhost:2000/"
+}

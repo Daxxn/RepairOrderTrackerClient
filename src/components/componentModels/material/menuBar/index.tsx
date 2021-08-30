@@ -11,12 +11,9 @@ export interface MenuBarProps {
 
 const MenuBar = (props: MenuBarProps): JSX.Element => {
   const { children, flexDir, theme } = props;
-  
+
   return (
-    <Container
-      className={`Base-menu-bar ${theme}`}
-      flexDirection={flexDir}
-    >
+    <Container className={`Base-menu-bar ${theme}`} flexDirection={flexDir}>
       {children}
     </Container>
   );

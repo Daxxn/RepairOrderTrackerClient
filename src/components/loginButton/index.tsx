@@ -1,3 +1,4 @@
+import React from 'react';
 import '../../styles/components/login.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import UserModel from '../../models/userModel';
@@ -15,11 +16,13 @@ const LoginButton = (props: LoginProps): JSX.Element => {
   return (
     <>
       {currentUsername ? (
-        <Button type="dark" onClick={() => logout({ returnTo: window.location.origin })}>
+        <Button theme="dark" onClick={() => logout({ returnTo: window.location.origin })}>
           {user ? `Logout ${user.userName}` : 'Logout'}
         </Button>
       ) : (
-        <Button type="dark" onClick={() => loginWithRedirect()}>Login</Button>
+        <Button theme="dark" onClick={() => loginWithRedirect()}>
+          Login
+        </Button>
       )}
     </>
   );
