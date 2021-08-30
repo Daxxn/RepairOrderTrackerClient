@@ -25,7 +25,9 @@ class UrlHelper {
     body?: any
   ): FetchInit {
     return {
-      url: `${this.config.rootUrl}api/users/${endpoint}${id || ''}`,
+      url: `${this.config.rootUrl}api/users/${this.config.userEndpoints[endpoint]}${
+        id || ''
+      }`,
       requestInit: {
         method: method ?? 'GET',
         credentials: 'include',
@@ -36,7 +38,7 @@ class UrlHelper {
   }
 
   private static buildHeaders(): HeadersInit {
-    const authToken = Cookies.get('authToken');
+    const authToken = Cookies.get('accessToken');
 
     if (authToken) {
       return {

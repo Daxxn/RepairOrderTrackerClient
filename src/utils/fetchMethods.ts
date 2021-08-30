@@ -1,26 +1,21 @@
 import { User } from '@auth0/auth0-react';
-import { UserData } from '../models/userModel';
+import UserModel, { UserData } from '../models/userModel';
 import { BasicResponse, UserInfoResponse } from './responseTypes';
 import UrlHelper from './urlHelper';
 
-export async function postLogin(
-  authId: string
-): Promise<UserInfoResponse | BasicResponse> {
+export async function postLogin(authId: string): Promise<UserModel> {
   try {
     const { url, requestInit } = UrlHelper.buildUserUrl('authId', authId, 'GET');
     const response = await fetch(url, requestInit);
 
-    const data = (await response.json()) as BasicResponse;
-    if (data.message) {
-      return data;
+    const data = (await response.json()) as UserModel;
+    if ('message' in data) {
+      throw data;
     }
-    return data as unknown as UserInfoResponse;
+    return data;
   } catch (err) {
-    const error = err as Error;
-    console.log(err);
-    return {
-      message: error.message,
-    } as BasicResponse;
+    console.log('from postLogin()', err);
+    throw err;
   }
 }
 
@@ -50,7 +45,7 @@ export async function createuser(user: User): Promise<UserInfoResponse | BasicRe
 }
 
 export async function fetchUserData(userId?: string): Promise<UserData> {
-  const { url, requestInit } = UrlHelper.buildUserUrl('data', userId);
+  const { url, requestInit } = UrlHelper.buildUserUrl('data', userId, 'POST');
   const response = await fetch(url, requestInit);
   return response.json() as unknown as UserData;
 }

@@ -10,7 +10,8 @@
     "root": "",
     "userName": "username/",
     "email": "email/",
-    "data": "data/"
+    "data": "data/",
+    "authId": "auth-id/"
   },
   "authEndpoints": {
     "login": "login/",

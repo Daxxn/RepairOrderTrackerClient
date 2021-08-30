@@ -1,4 +1,4 @@
-import { BaseModel } from './baseModel';
+import { BaseModel, BaseObjects as BaseObject } from './baseModel';
 import JobModel, { JobObjects } from './jobModel';
 import PayPeriodModel, { PayPeriodObjects } from './payPeriodModel';
 import RepairOrderModel, { RepairOrderObjects } from './repairOrderModel';
@@ -8,13 +8,14 @@ import { BasicResponse } from '../utils/responseTypes';
 
 export type UserCallback = (updatedUser: UserModel | null) => void;
 export type ModelCallback = (updatedModel: BaseModel) => void;
-// export type ObjectCallback = (updatedObjects: BaseObjects) => void;
+export type ObjectCallback = (updatedObjects: BaseObject) => void;
 
 type UserObservers = {
   userListeners: {
     [id: string]: UserCallback;
   };
-  objectListeners: ModelObserver;
+  modelListeners: ModelObserver;
+  objectListeners: ObjectObserver;
 };
 
 type ModelObserver = {
@@ -23,16 +24,11 @@ type ModelObserver = {
   };
 };
 
-// type UserModelObservers = {
-//   payPeriodObservers: ModelObserver<PayPeriodModel>;
-//   repairOrderObservers: ModelObserver<RepairOrderModel>;
-//   jobObservers: ModelObserver<JobModel>;
-//   techObservers: ModelObserver<TechModel>;
-// };
-
-// type UserModelObservers = {
-//   [key in ModelType]: ModelObserver;
-// };
+type ObjectObserver = {
+  [key in ModelType]: {
+    [id: string]: ObjectCallback;
+  };
+};
 
 export type ModelType = 'PayPeriods' | 'RepairOrders' | 'Jobs' | 'Techs';
 export type BaseType = PayPeriodModel | RepairOrderModel | JobModel | TechModel;
@@ -44,10 +40,10 @@ export type ModelObjects =
   | TechObjects;
 
 export type UserData = {
-  payPeriods: PayPeriodObjects;
-  repairOrders: RepairOrderObjects;
-  techs: TechObjects;
-  jobs: JobObjects;
+  PayPeriods: PayPeriodObjects;
+  RepairOrders: RepairOrderObjects;
+  Techs: TechObjects;
+  Jobs: JobObjects;
 };
 
 export type ModelData = {
@@ -72,6 +68,12 @@ class UserModel {
   // #region Props
   private static userObservers: UserObservers = {
     userListeners: {},
+    modelListeners: {
+      PayPeriods: {},
+      RepairOrders: {},
+      Jobs: {},
+      Techs: {},
+    },
     objectListeners: {
       PayPeriods: {},
       RepairOrders: {},
@@ -94,6 +96,12 @@ class UserModel {
   private static initObservers() {
     this.userObservers = {
       userListeners: {},
+      modelListeners: {
+        PayPeriods: {},
+        RepairOrders: {},
+        Jobs: {},
+        Techs: {},
+      },
       objectListeners: {
         PayPeriods: {},
         RepairOrders: {},
@@ -109,6 +117,7 @@ class UserModel {
   }
 
   static setUser(user: UserModel | null): void {
+    console.log('setUser() Should not be called right now.');
     this.user = user;
 
     // Send POST request to API
@@ -117,15 +126,30 @@ class UserModel {
   }
 
   static setUserData(data: UserData): void {
-    this.modelData.PayPeriods = data.payPeriods;
-    this.modelData.RepairOrders = data.repairOrders;
-    this.modelData.Jobs = data.jobs;
-    this.modelData.Techs = data.techs;
+    this.modelData.PayPeriods = data.PayPeriods;
+    this.modelData.RepairOrders = data.RepairOrders;
+    this.modelData.Jobs = data.Jobs;
+    this.modelData.Techs = data.Techs;
+
+    // this.updateObjectObservers('PayPeriods', this.modelData.PayPeriods);
+    // this.updateObjectObservers('RepairOrders', this.modelData.RepairOrders);
+    // this.updateObjectObservers('Jobs', this.modelData.Jobs);
+    // this.updateObjectObservers('Techs', this.modelData.Techs);
+    this.updateUserObservers(this.user);
+  }
+
+  static initializeUser(user: UserModel, data: UserData): void {
+    this.user = user;
+    this.modelData.PayPeriods = data.PayPeriods;
+    this.modelData.RepairOrders = data.RepairOrders;
+    this.modelData.Jobs = data.Jobs;
+    this.modelData.Techs = data.Techs;
 
     this.updateUserObservers(this.user);
   }
 
   static getObjects(type: ModelType): ModelObjects {
+    console.log('getObjects', this.modelData[type]);
     return this.modelData[type];
   }
 
@@ -144,6 +168,8 @@ class UserModel {
   }
 
   static getModel(type: ModelType, id: string): BaseModel | null {
+    console.log(`type: ${type} , ID: ${id}`);
+    console.log(this.modelData);
     if (this.modelData[type][id]) {
       return this.modelData[type][id];
     }
@@ -169,12 +195,24 @@ class UserModel {
       if (!this.userObservers.userListeners[id]) {
         this.userObservers.userListeners[id] = callback;
       }
-    } else {
-      this.initObservers();
     }
   }
 
   static appendModelObserver(id: string, type: ModelType, callback: ModelCallback): void {
+    if (this.userObservers) {
+      if (this.userObservers.modelListeners[type]) {
+        if (!this.userObservers.modelListeners[type][id]) {
+          this.userObservers.modelListeners[type][id] = callback;
+        }
+      }
+    }
+  }
+
+  static appendObjectObserver(
+    id: string,
+    type: ModelType,
+    callback: ObjectCallback
+  ): void {
     if (this.userObservers) {
       if (this.userObservers.objectListeners[type]) {
         if (!this.userObservers.objectListeners[type][id]) {
@@ -194,6 +232,16 @@ class UserModel {
 
   static removeModelObservers(id: string, type: ModelType): void {
     if (this.userObservers) {
+      if (this.userObservers.modelListeners[type]) {
+        if (this.userObservers.modelListeners[type][id]) {
+          delete this.userObservers.modelListeners[type][id];
+        }
+      }
+    }
+  }
+
+  static removeObjectObservers(id: string, type: ModelType): void {
+    if (this.userObservers) {
       if (this.userObservers.objectListeners[type]) {
         if (this.userObservers.objectListeners[type][id]) {
           delete this.userObservers.objectListeners[type][id];
@@ -207,8 +255,17 @@ class UserModel {
   }
 
   private static updateModelObservers(type: ModelType, updatedModel: BaseModel): void {
-    Object.values(this.userObservers.objectListeners[type]).forEach(obs =>
+    Object.values(this.userObservers.modelListeners[type]).forEach(obs =>
       obs(updatedModel)
+    );
+  }
+
+  private static updateObjectObservers(
+    type: ModelType,
+    updatedObjects: BaseObject
+  ): void {
+    Object.values(this.userObservers.objectListeners[type]).forEach(obs =>
+      obs(updatedObjects)
     );
   }
   // #endregion

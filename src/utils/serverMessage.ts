@@ -5,7 +5,7 @@ export type Messages = {
 };
 
 export default class ServerMessage {
-  private static _serverMessages: Messages;
+  private static _serverMessages: Messages = {};
 
   private static buildMessages(): void {
     const entries = Object.entries(serverMessages);

@@ -15,12 +15,13 @@ const PayPeriods = (props: PayPeriodProps): JSX.Element => {
   console.log('PayPeriod Component ', payPeriodIds);
   const id = 'pay-period-list';
   const allpayPeriods = UserModel.getObjects('PayPeriods') as PayPeriodObjects;
+  console.log(allpayPeriods);
   console.log('PayPeriod Data ', allpayPeriods);
 
   return (
     <Card theme="light" key={id}>
       <TitleCard>PayPeriods</TitleCard>
-      {payPeriodIds && payPeriodIds.length > 0 ? (
+      {allpayPeriods && payPeriodIds && payPeriodIds.length > 0 ? (
         payPeriodIds.map(ppId => (
           <PayPeriod key={`pay-period-${ppId}`} payPeriod={allpayPeriods[ppId]} />
         ))

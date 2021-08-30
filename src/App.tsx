@@ -18,14 +18,7 @@ const serverMsgs = ServerMessage.get();
 const App = (): JSX.Element => {
   const { user, getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
 
-  const [mainUser, setuser] = useState<UserModel | null>(UserModel.getUser());
-
-  useEffect(() => {
-    UserModel.appendUserObserver('app', updatedUser => {
-      setuser(updatedUser);
-    });
-    return () => UserModel.removeUserObserver('app');
-  }, []);
+  const [mainUser, setuser] = useState<UserModel | null>(null);
 
   // const handleLoadTestData = () => {
   //   if (!config.useAuth) {
@@ -88,47 +81,46 @@ const App = (): JSX.Element => {
   // #region Auth0 Gen 2
   useEffect(() => {
     const currentUser = UserModel.getUser();
+    let newUser;
+    let newUserData;
     const getUserMetadata = async () => {
       try {
         if (!currentUser) {
           const accessToken = await getAccessTokenSilently();
 
-          const originalToken = Cookies.get('accessToken');
-          if (accessToken) {
-            if (accessToken !== originalToken) {
-              Cookies.set('accessToken', accessToken);
-            }
-          }
+          Cookies.set('accessToken', accessToken);
           if (user) {
             if (user.sub) {
-              const userInfo = await postLogin(user.sub);
-              if ('message' in userInfo) {
-                if (userInfo.message === serverMsgs.noUserFound) {
-                  const newUser = await createuser(user);
+              try {
+                newUser = await postLogin(user.sub);
+                console.log('Updating observers', newUser);
+                // setuser(userInfo.user);
+
+                newUserData = await fetchUserData();
+                console.log('User Response:', newUser);
+                console.log('User Data:', newUserData);
+                // UserModel.setUserData(newUserData);
+              } catch (error) {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                if (error.message === serverMsgs.noUserFound) {
+                  newUser = await createuser(user);
 
                   if ('message' in newUser) {
                     throw new Error(newUser.message);
                   }
 
-                  UserModel.setUser(newUser.user);
+                  // setuser(newUser.user);
 
                   console.log('Auth0 User:', user);
                   console.log('User:', newUser);
 
-                  const data = await fetchUserData();
-                  console.log('User Data:', data);
-                  UserModel.setUserData(data);
-
-                  return;
+                  newUserData = await fetchUserData();
+                  console.log('User Data:', newUserData);
+                  // UserModel.setUserData(newUserData);
                 }
-                throw new Error(userInfo.message);
+                throw error;
               }
-              UserModel.setUser(userInfo.user);
-
-              const data = await fetchUserData();
-              console.log('User Response:', userInfo);
-              console.log('User Data:', data);
-              UserModel.setUserData(data);
+              UserModel.initializeUser(newUser, newUserData);
             }
           }
         }
@@ -143,7 +135,18 @@ const App = (): JSX.Element => {
   }, [getAccessTokenSilently, user?.sub]);
   // #endregion
 
+  // #region Auto0 Gen 3
   // #endregion
+
+  // #endregion
+
+  useEffect(() => {
+    UserModel.appendUserObserver('app', updatedUser => {
+      console.log('In App Update User');
+      setuser(updatedUser);
+    });
+    return () => UserModel.removeUserObserver('app');
+  }, []);
 
   return (
     <div className="App">
@@ -153,7 +156,7 @@ const App = (): JSX.Element => {
           <>
             {isAuthenticated ? (
               <>
-                {mainUser !== null ? (
+                {mainUser ? (
                   <PayPeriods payPeriodIds={mainUser.payPeriods} />
                 ) : (
                   <Card>
