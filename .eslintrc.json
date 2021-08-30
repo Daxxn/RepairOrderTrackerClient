@@ -120,7 +120,9 @@
         "no-alert": "warn",
 
         // Only allowed temporarily
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+        // Cant return data from a fucking fetch with this shit!
+        "@typescript-eslint/no-unsafe-assignment": "off"
       }
     }
   ]

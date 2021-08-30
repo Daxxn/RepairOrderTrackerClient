@@ -3,7 +3,7 @@ import Text from '../text';
 import './dateViewer.css';
 
 export interface DateViewerProps {
-  date?: Date;
+  date?: string;
   className?: string;
 }
 
@@ -12,11 +12,12 @@ const DateViewer = (props: DateViewerProps): JSX.Element => {
 
   let dateDisplay = '--/--/--';
   if (date) {
+    const testDate = new Date(date);
     dateDisplay = Date.toString();
-    // const day = date.getDay();
-    // const month = date.getMonth();
-    // const year = date.getFullYear();
-    // dateDisplay = `${month}/${day}/${year}`;
+    const day = testDate.getDay();
+    const month = testDate.getMonth();
+    const year = testDate.getFullYear();
+    dateDisplay = `${month}/${day}/${year}`;
   }
 
   return (

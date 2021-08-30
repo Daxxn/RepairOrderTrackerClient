@@ -7,7 +7,8 @@ export type RepairOrderObjects = {
 interface RepairOrderModel extends BaseModel {
   roNumber: number;
   flagId: number;
-  date: Date;
+  // date: Date;
+  date: string;
   isCompleted: boolean;
   jobs: string[];
 }
@@ -18,7 +19,8 @@ class RepairOrderModel {
   __v = 0;
   roNumber = 0;
   flagId = 0;
-  date: Date = new Date(Date.now());
+  // date: Date = new Date(Date.now());
+  date = '';
   isCompleted = false;
   jobs: string[] = [];
   // #endregion

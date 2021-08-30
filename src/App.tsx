@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import Cookies from 'js-cookie';
 import MainMenuBar from './components/menuBar';
-import UserModel, { UserData } from './models/userModel';
-import buildUserTestData from './models/TestingModels';
+import UserModel from './models/userModel';
+// import buildUserTestData from './models/TestingModels';
 import PayPeriods from './components/componentModels/payPeriods';
 import Container from './components/componentModels/material/container';
-import Config from './utils/config';
+// import Config from './utils/config';
 import Card from './components/componentModels/material/card';
+import { createuser, postLogin, fetchUserData } from './utils/fetchMethods';
+import ServerMessage from './utils/serverMessage';
 import './styles/App.css';
 
-const config = Config.get();
-
-const loadUserData = (data: UserData | null) => {
-  if (data) {
-    UserModel.setUser(data.user);
-    UserModel.setObjects('PayPeriods', data.payPeriods);
-    UserModel.setObjects('RepairOrders', data.repairOrders);
-    UserModel.setObjects('Jobs', data.jobs);
-    UserModel.setObjects('Techs', data.techs);
-  }
-};
+// const config = Config.getAuthConfig();
+const serverMsgs = ServerMessage.get();
 
 const App = (): JSX.Element => {
   const { user, getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
@@ -33,13 +27,65 @@ const App = (): JSX.Element => {
     return () => UserModel.removeUserObserver('app');
   }, []);
 
-  const handleLoadTestData = () => {
-    if (!config.useAuth) {
-      loadUserData(buildUserTestData());
-    }
-  };
+  // const handleLoadTestData = () => {
+  //   if (!config.useAuth) {
+  //     loadUserData(buildUserTestData());
+  //   }
+  // };
 
   // #region Auth0 API Call Hook
+  // #region Auth0 Gen 1
+  // useEffect(() => {
+  //   const currentUser = UserModel.getUser();
+  //   const getUserMetadata = async () => {
+  //     try {
+  //       if (!currentUser) {
+  //         const accessToken = await getAccessTokenSilently();
+
+  //         if (user) {
+  //           console.log(user);
+  //           const originalToken = Cookies.get('accessToken');
+  //           if (accessToken) {
+  //             if (accessToken !== originalToken) {
+  //               Cookies.set('accessToken', accessToken);
+  //             }
+  //           }
+  //           const apiResponse = await fetch(`http://localhost:2000/api/users`, {
+  //             method: 'POST',
+  //             headers: {
+  //               'Content-Type': 'application/json',
+  //               // eslint-disable-next-line prettier/prettier
+  //               'Authorization': `Bearer ${accessToken}`,
+  //             },
+  //             credentials: 'include',
+  //             body: JSON.stringify({
+  //               email: user.email,
+  //               userName: user.preferred_username,
+  //               firstName: user.given_name,
+  //               lastName: user.family_name,
+  //             }),
+  //           });
+
+  //           const userData = (await apiResponse.json()) as UserData;
+
+  //           console.log(user);
+  //           console.log(userData);
+
+  //           UserModel.setUserData(userData);
+  //         }
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+
+  //   getUserMetadata()
+  //     .then()
+  //     .catch(err => console.log(err));
+  // }, [getAccessTokenSilently, user?.sub]);
+  // #endregion
+
+  // #region Auth0 Gen 2
   useEffect(() => {
     const currentUser = UserModel.getUser();
     const getUserMetadata = async () => {
@@ -47,28 +93,43 @@ const App = (): JSX.Element => {
         if (!currentUser) {
           const accessToken = await getAccessTokenSilently();
 
+          const originalToken = Cookies.get('accessToken');
+          if (accessToken) {
+            if (accessToken !== originalToken) {
+              Cookies.set('accessToken', accessToken);
+            }
+          }
           if (user) {
-            const apiResponse = await fetch(`http://localhost:2000/api/users`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                // eslint-disable-next-line prettier/prettier
-                'Authorization': `Bearer ${accessToken}`,
-              },
-              body: JSON.stringify({
-                email: user.email,
-                userName: user.preferred_username,
-                firstName: user.given_name,
-                lastName: user.family_name,
-              }),
-            });
+            if (user.sub) {
+              const userInfo = await postLogin(user.sub);
+              if ('message' in userInfo) {
+                if (userInfo.message === serverMsgs.noUserFound) {
+                  const newUser = await createuser(user);
 
-            const userData = (await apiResponse.json()) as UserData;
+                  if ('message' in newUser) {
+                    throw new Error(newUser.message);
+                  }
 
-            console.log(user);
-            console.log(userData);
+                  UserModel.setUser(newUser.user);
 
-            UserModel.setUserData(userData);
+                  console.log('Auth0 User:', user);
+                  console.log('User:', newUser);
+
+                  const data = await fetchUserData();
+                  console.log('User Data:', data);
+                  UserModel.setUserData(data);
+
+                  return;
+                }
+                throw new Error(userInfo.message);
+              }
+              UserModel.setUser(userInfo.user);
+
+              const data = await fetchUserData();
+              console.log('User Response:', userInfo);
+              console.log('User Data:', data);
+              UserModel.setUserData(data);
+            }
           }
         }
       } catch (e) {
@@ -80,15 +141,14 @@ const App = (): JSX.Element => {
       .then()
       .catch(err => console.log(err));
   }, [getAccessTokenSilently, user?.sub]);
+  // #endregion
+
+  // #endregion
 
   return (
     <div className="App">
       <Container flexDirection="column">
-        <MainMenuBar
-          user={mainUser}
-          title="Repair Tracker"
-          handleLoadTestData={handleLoadTestData}
-        />
+        <MainMenuBar title="Repair Tracker" />
         {!isLoading ? (
           <>
             {isAuthenticated ? (

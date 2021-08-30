@@ -3,6 +3,8 @@ import JobModel, { JobObjects } from './jobModel';
 import PayPeriodModel, { PayPeriodObjects } from './payPeriodModel';
 import RepairOrderModel, { RepairOrderObjects } from './repairOrderModel';
 import TechModel, { TechObjects } from './techModel';
+import UrlHelper from '../utils/urlHelper';
+import { BasicResponse } from '../utils/responseTypes';
 
 export type UserCallback = (updatedUser: UserModel | null) => void;
 export type ModelCallback = (updatedModel: BaseModel) => void;
@@ -42,7 +44,6 @@ export type ModelObjects =
   | TechObjects;
 
 export type UserData = {
-  user: UserModel;
   payPeriods: PayPeriodObjects;
   repairOrders: RepairOrderObjects;
   techs: TechObjects;
@@ -54,6 +55,7 @@ export type ModelData = {
 };
 
 interface UserModel extends BaseModel {
+  authId: string;
   userName: string;
   email: string;
   firstName: string;
@@ -115,14 +117,12 @@ class UserModel {
   }
 
   static setUserData(data: UserData): void {
-    this.user = data.user;
-
     this.modelData.PayPeriods = data.payPeriods;
     this.modelData.RepairOrders = data.repairOrders;
     this.modelData.Jobs = data.jobs;
     this.modelData.Techs = data.techs;
 
-    this.updateUserObservers(data.user);
+    this.updateUserObservers(this.user);
   }
 
   static getObjects(type: ModelType): ModelObjects {
@@ -136,23 +136,6 @@ class UserModel {
   }
 
   static setModel(type: ModelType, data: BaseType): void {
-    // switch (type) {
-    //   case 'PayPeriods':
-    //     this.payPeriods[data._id] = data as PayPeriodModel;
-    //     break;
-    //   case 'RepairOrders':
-    //     this.repairOrders[data._id] = data as RepairOrderModel;
-    //     break;
-    //   case 'Techs':
-    //     this.techs[data._id] = data as TechModel;
-    //     break;
-    //   case 'Jobs':
-    //     this.jobs[data._id] = data as JobModel;
-    //     break;
-    //   default:
-    //     throw new Error(`Unknown model type: ${type}`);
-    // }
-
     if (this.modelData) {
       this.modelData[type][data._id] = data;
     }
@@ -165,6 +148,19 @@ class UserModel {
       return this.modelData[type][id];
     }
     return null;
+  }
+
+  private static async saveUser() {
+    if (this.user) {
+      try {
+        const fetchInit = UrlHelper.buildUserUrl('root', 'PATCH');
+        const response = await fetch(fetchInit.url, fetchInit.requestInit);
+        const data = (await response.json()) as BasicResponse;
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
 
   // #region Observer Pattern Methods

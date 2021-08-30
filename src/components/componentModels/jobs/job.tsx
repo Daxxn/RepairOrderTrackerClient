@@ -29,19 +29,25 @@ const assignedTechFab = (jobId: string, techId: string | null) => {
 
 const Job = (props: JobProps): JSX.Element => {
   const { job, parentId } = props;
-  const { _id, assignedTech, name, time, isRecall, description } = job;
+  // const { _id, assignedTech, name, time, isRecall, description } = job;
   const componentId = `job-item-${parentId ?? ''}`;
 
   return (
-    <Card key={componentId}>
-      <Title>{name}</Title>
-      <Card>
-        <Text>{time}</Text>
-        <Text>{description}</Text>
-        {isRecall ? <Text>recall</Text> : ''}
-        {assignedTechFab(_id, assignedTech)}
-      </Card>
-    </Card>
+    <>
+      {job ? (
+        <Card key={componentId}>
+          <Title>{job.name}</Title>
+          <Card>
+            <Text>{job.time}</Text>
+            <Text>{job.description}</Text>
+            {job.isRecall ? <Text>recall</Text> : ''}
+            {assignedTechFab(job._id, job.assignedTech)}
+          </Card>
+        </Card>
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 
