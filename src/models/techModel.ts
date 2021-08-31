@@ -13,6 +13,7 @@ class TechModel {
   // #region Props
   _id = '';
   __v = 0;
+  userId = '';
   name = '';
   techNumber = 0;
   // #endregion

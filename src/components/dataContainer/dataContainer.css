@@ -1,0 +1,4 @@
+.Base-data-container {
+  display: flex;
+  flex-flow: row nowrap;
+}

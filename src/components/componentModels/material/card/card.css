@@ -9,6 +9,11 @@
   margin: var(--card-margin);
 }
 
+.Base-car-header {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
 .Header-card {
   background-color: var(--theme-primary-dark);
   color: var(--theme-font-color);

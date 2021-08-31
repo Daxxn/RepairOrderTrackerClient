@@ -1,32 +1,39 @@
 import React from 'react';
-import { PayPeriodObjects } from '../../../models/payPeriodModel';
-import UserModel from '../../../models/userModel';
+import { HandleNewModel } from '../../../App';
+import AddButton from '../addButton';
 import Card from '../material/card';
+import CardHeader from '../material/card/cardHeader';
 import Text from '../material/text';
 import TitleCard from '../material/titleCard';
 import PayPeriod from './PayPeriod';
 
 export interface PayPeriodProps {
   payPeriodIds: string[] | null;
+  handleNewModel: HandleNewModel;
 }
 
 const PayPeriods = (props: PayPeriodProps): JSX.Element => {
-  const { payPeriodIds } = props;
+  const { payPeriodIds, handleNewModel } = props;
   console.log('PayPeriod Component ', payPeriodIds);
-  const id = 'pay-period-list';
-  const allpayPeriods = UserModel.getObjects('PayPeriods') as PayPeriodObjects;
-  console.log(allpayPeriods);
-  console.log('PayPeriod Data ', allpayPeriods);
+  const id = 'main-pay-period-list';
+
+  const handleAdd = () => {
+    console.log('Add PayPeriod...');
+    handleNewModel('PayPeriods');
+  };
 
   return (
     <Card theme="light" key={id}>
-      <TitleCard>PayPeriods</TitleCard>
-      {allpayPeriods && payPeriodIds && payPeriodIds.length > 0 ? (
+      <CardHeader>
+        <TitleCard>PayPeriods</TitleCard>
+        <AddButton addModelHandler={handleAdd} />
+      </CardHeader>
+      {payPeriodIds && payPeriodIds.length > 0 ? (
         payPeriodIds.map(ppId => (
-          <PayPeriod key={`pay-period-${ppId}`} payPeriod={allpayPeriods[ppId]} />
+          <PayPeriod key={`pay-period-${ppId}`} payPeriodId={ppId} />
         ))
       ) : (
-        <Text size="small">Nothing...</Text>
+        <Text size="small">No Pay Periods...</Text>
       )}
     </Card>
   );

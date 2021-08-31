@@ -6,12 +6,11 @@ export interface ButtonProps {
   onClick?: MouseEventHandler;
   className?: string;
   children?: ReactNode;
-  content?: string;
   theme?: ThemeType;
 }
 
 const Button = (props: ButtonProps): JSX.Element => {
-  const { onClick, children, content, theme, className } = props;
+  const { onClick, children, theme, className } = props;
 
   let cssClass = className;
   if (!cssClass) {
@@ -25,7 +24,7 @@ const Button = (props: ButtonProps): JSX.Element => {
         theme ? ` ${theme}` : ''
       }`}
     >
-      {children ?? content}
+      {children}
     </button>
   );
 };

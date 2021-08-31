@@ -26,7 +26,7 @@ const Title = (props: TitleProps): JSX.Element => {
   };
 
   return (
-    <h1 className={`Base-title ${size} ${theme ?? ''}`} style={css}>
+    <h1 className={`Base-title ${size ?? 'med'}${theme ? ` ${theme}` : ''}`} style={css}>
       {children ?? value}
     </h1>
   );

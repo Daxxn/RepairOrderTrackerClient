@@ -10,15 +10,18 @@ import '../../styles/components/mainMenuBar.css';
 
 export interface MainMenuBarProps {
   title: string;
+  handleNewModel: () => void;
 }
 
 const MainMenuBar = (props: MainMenuBarProps): JSX.Element => {
-  const { title } = props;
+  const { title, handleNewModel } = props;
   const user = UserModel.getUser();
 
   return (
     <MenuBar flexDir="row" theme="light">
-      <Button theme="dark">Hamb</Button>
+      <Button theme="dark" onClick={handleNewModel}>
+        Hamb
+      </Button>
       <Title size="med">
         {title} - {user?.userName}
       </Title>
