@@ -1,3 +1,37 @@
 .Base-add-button {
-  padding: 0.1rem;
+  position: absolute;
+  right: var(--card-border-spacing);
+  top: -70%;
+  transition: filter 120ms;
 }
+
+.Base-add-button:hover {
+  filter: saturate(10);
+}
+
+.Add-button-container {
+  position: relative;
+  height: 20px;
+}
+
+svg:hover #page {
+  fill-opacity: 0.35;
+}
+
+svg:hover #fold-outline {
+  stroke-opacity: 0.3;
+}
+
+#page {
+  fill-opacity: 0;
+  transition: fill-opacity 100ms ease-in;
+}
+
+#fold-outline {
+  stroke-opacity: 0;
+  transition: stroke-opacity 100ms ease-in;
+}
+/* 
+#page:hover {
+  fill-opacity: 0.35;
+} */

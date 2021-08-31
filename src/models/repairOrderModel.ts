@@ -17,6 +17,7 @@ class RepairOrderModel {
   // #region Props
   _id = '';
   __v = 0;
+  userId = '';
   roNumber = 0;
   flagId = 0;
   // date: Date = new Date(Date.now());

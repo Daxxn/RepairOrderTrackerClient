@@ -17,6 +17,7 @@ class JobModel {
   // #region Props
   _id = '';
   __v = 0;
+  userId = '';
   name = '';
   description = '';
   time = 0;

@@ -10,7 +10,7 @@ export interface CardProps {
 const Card = (props: CardProps): JSX.Element => {
   const { children, theme } = props;
 
-  return <div className={`Base-card ${theme ?? ''}`}>{children}</div>;
+  return <div className={`Base-card${theme ? ` ${theme}` : ''}`}>{children}</div>;
 };
 
 export default Card;

@@ -14,7 +14,7 @@ export interface PayPeriodProps {
 const PayPeriod = (props: PayPeriodProps): JSX.Element => {
   const { payPeriod: payPeriodInput } = props;
   const [payPeriod, setPayPeriod] = useState<PayPeriodModel>(payPeriodInput);
-  const id = `pay-period-item-${payPeriod._id}`;
+  const id = `pay-period-item-${payPeriod ? payPeriod._id : 'null'}`;
 
   useEffect(() => {
     UserModel.appendModelObserver(id, 'PayPeriods', updatedPayPeriod => {

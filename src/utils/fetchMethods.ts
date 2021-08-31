@@ -1,5 +1,6 @@
 import { User } from '@auth0/auth0-react';
-import UserModel, { UserData } from '../models/userModel';
+import { BaseModel } from '../models/baseModel';
+import UserModel, { ModelType, UserData } from '../models/userModel';
 import { BasicResponse, UserInfoResponse } from './responseTypes';
 import UrlHelper from './urlHelper';
 
@@ -48,4 +49,10 @@ export async function fetchUserData(userId?: string): Promise<UserData> {
   const { url, requestInit } = UrlHelper.buildUserUrl('data', userId, 'POST');
   const response = await fetch(url, requestInit);
   return response.json() as unknown as UserData;
+}
+
+export async function createNewModel(type: ModelType): Promise<UserModel> {
+  const { url, requestInit } = UrlHelper.buildModelUrl(type);
+  const response = await fetch(url, requestInit);
+  return response.json() as unknown as UserModel;
 }

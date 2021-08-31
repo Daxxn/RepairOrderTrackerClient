@@ -8,6 +8,7 @@
 # testing
 /.vscode
 /coverage
+*.swp
 
 # production
 /build

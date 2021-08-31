@@ -5,6 +5,7 @@ import RepairOrderModel, { RepairOrderObjects } from './repairOrderModel';
 import TechModel, { TechObjects } from './techModel';
 import UrlHelper from '../utils/urlHelper';
 import { BasicResponse } from '../utils/responseTypes';
+import { createNewModel } from '../utils/fetchMethods';
 
 export type UserCallback = (updatedUser: UserModel | null) => void;
 export type ModelCallback = (updatedModel: BaseModel) => void;
@@ -63,9 +64,9 @@ interface UserModel extends BaseModel {
 }
 
 class UserModel {
+  // #region Props
   _id = '';
   __v = 0;
-  // #region Props
   private static userObservers: UserObservers = {
     userListeners: {},
     modelListeners: {
@@ -88,6 +89,8 @@ class UserModel {
     Jobs: {},
     Techs: {},
   };
+
+  private static readonly defaultId = 'default';
   // #endregion
 
   // #region Methods
@@ -174,6 +177,76 @@ class UserModel {
       return this.modelData[type][id];
     }
     return null;
+  }
+
+  static newModel(type: ModelType, parentId?: string): void {
+    if (this.user && this.modelData[type]) {
+      if (this.modelData[type][this.defaultId]) {
+        console.log('exit for some reason??');
+        return;
+      }
+      let newModel;
+      switch (type) {
+        case 'PayPeriods':
+          newModel = new PayPeriodModel();
+          this.user.payPeriods.push(this.defaultId);
+          break;
+        case 'RepairOrders':
+          newModel = new RepairOrderModel();
+          break;
+        case 'Jobs':
+          newModel = new JobModel();
+          break;
+        case 'Techs':
+          newModel = new TechModel();
+          break;
+        default:
+          throw new Error('Unknown Type');
+      }
+      newModel._id = this.defaultId;
+      newModel.userId = this.user ? this.user?._id : '';
+
+      console.log('added: ', newModel);
+      // console.log('Mock: send POST request to server.');
+      createNewModel(type)
+        .then(savedUser => {
+          delete this.modelData[type][this.defaultId];
+          // switch (type) {
+          //   case 'PayPeriods':
+          //     this.modelData[type][savedModel._id] = savedModel as PayPeriodModel;
+          //     break;
+          //   case 'RepairOrders':
+          //     this.modelData[type][savedModel._id] = savedModel as RepairOrderModel;
+          //     break;
+          //     case 'Jobs':
+          //       this.modelData[type][savedModel._id] = savedModel as JobModel;
+          //       break;
+          //       case 'Techs':
+          //         this.modelData[type][savedModel._id] = savedModel as TechModel;
+          //         break;
+          //   default:
+          //     break;
+          // }
+          console.log('User:', savedUser);
+          this.updateUserObservers(savedUser);
+        })
+        .catch(err => console.log(err));
+    }
+  }
+
+  static removeModel(type: ModelType, id: string): void {
+    if (this.user && this.modelData[type]) {
+      if (this.modelData[type][id]) {
+        delete this.modelData[type][id];
+      }
+      if (type === 'PayPeriods') {
+        this.user.payPeriods = this.user.payPeriods.filter(pp => pp !== id);
+      }
+
+      // Send request to server...
+
+      this.updateUserObservers(this.user);
+    }
   }
 
   private static async saveUser() {

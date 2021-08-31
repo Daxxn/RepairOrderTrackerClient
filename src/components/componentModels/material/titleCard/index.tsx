@@ -14,7 +14,7 @@ const TitleCard = (props: TitleCardProps): JSX.Element => {
   const { value, children, theme, size } = props;
 
   return (
-    <div className={`Base-title-card ${theme}`}>
+    <div className={`Base-title-card${theme ? ` ${theme}` : ''}`}>
       <Title value={value} size={size}>
         {children}
       </Title>
