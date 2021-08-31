@@ -1,4 +1,3 @@
-import { BaseModel } from '../models/baseModel';
 import UserModel from '../models/userModel';
 
 export type BasicResponse = {

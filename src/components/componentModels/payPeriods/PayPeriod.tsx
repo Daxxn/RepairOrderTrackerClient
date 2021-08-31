@@ -8,13 +8,14 @@ import UserModel from '../../../models/userModel';
 import DateViewer from '../material/dateViewer';
 
 export interface PayPeriodProps {
-  payPeriod: PayPeriodModel;
+  payPeriodId: string;
 }
 
 const PayPeriod = (props: PayPeriodProps): JSX.Element => {
-  const { payPeriod: payPeriodInput } = props;
+  const { payPeriodId } = props;
+  const payPeriodInput = UserModel.getModel('PayPeriods', payPeriodId) as PayPeriodModel;
   const [payPeriod, setPayPeriod] = useState<PayPeriodModel>(payPeriodInput);
-  const id = `pay-period-item-${payPeriod ? payPeriod._id : 'null'}`;
+  const id = `pay-period-item-${payPeriodId ?? 'null'}`;
 
   useEffect(() => {
     UserModel.appendModelObserver(id, 'PayPeriods', updatedPayPeriod => {

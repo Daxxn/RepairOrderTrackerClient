@@ -12,16 +12,18 @@ export interface TechsProps {
 
 const Techs = (props: TechsProps): JSX.Element => {
   const { techIds, displayAllTechs } = props;
-  const techs = UserModel.getObjects('Techs') as TechObjects;
+  const allTechIds = Object.keys(UserModel.getObjects('Techs') as TechObjects);
 
   return (
     <Container>
       {techIds && techIds.length > 0 ? (
-        techIds.map(id => <Tech tech={techs[id]} />)
+        techIds.map(id => <Tech key={`main-tech-item-${id}`} techId={id} />)
       ) : (
         <>
-          {techs && displayAllTechs ? (
-            Object.values(techs).map(tech => <Tech tech={tech} />)
+          {allTechIds && displayAllTechs ? (
+            Object.values(allTechIds).map(id => (
+              <Tech key={`main-tech-item-${id}`} techId={id} />
+            ))
           ) : (
             <Text>No Techs found.</Text>
           )}

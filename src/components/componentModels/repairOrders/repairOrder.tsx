@@ -19,9 +19,11 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
     'RepairOrders',
     repairOrderId
   ) as RepairOrderModel;
+
   if (!repairOrder) {
-    return <Text>Repair Order Load Failure</Text>;
+    return <Text>Repair Order Load Failure..</Text>;
   }
+
   const [ro, setRepairOrder] = useState(repairOrder);
   const componentId = `repair-order-item-${ro._id}-${parentId ?? ''}`;
 

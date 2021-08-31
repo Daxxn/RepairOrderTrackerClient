@@ -3,12 +3,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Cookies from 'js-cookie';
 import MainMenuBar from './components/menuBar';
 import UserModel, { ModelType } from './models/userModel';
-import PayPeriods from './components/componentModels/payPeriods';
 import Container from './components/componentModels/material/container';
 import Card from './components/componentModels/material/card';
 import { createuser, postLogin, fetchUserData } from './utils/fetchMethods';
 import ServerMessage from './utils/serverMessage';
 import './styles/App.css';
+import DataContainer from './components/dataContainer';
+import { TechObjects } from './models/techModel';
 
 export type HandleNewModel = (type: ModelType, parentId?: string) => void;
 
@@ -88,15 +89,19 @@ const App = (): JSX.Element => {
   return (
     <div className="App">
       <Container flexDirection="column">
-        <MainMenuBar title="Repair Tracker" />
+        <MainMenuBar
+          title="Repair Tracker"
+          handleNewModel={() => handleNewModel('Jobs', '6124af11ced8aca5e0344061')}
+        />
         {!isLoading ? (
           <>
             {isAuthenticated ? (
               <>
                 {mainUser ? (
-                  <PayPeriods
+                  <DataContainer
                     payPeriodIds={mainUser.payPeriods}
                     handleNewModel={handleNewModel}
+                    techIds={Object.keys(UserModel.getObjects('Techs') as TechObjects)}
                   />
                 ) : (
                   <Card>

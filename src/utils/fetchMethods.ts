@@ -1,5 +1,4 @@
 import { User } from '@auth0/auth0-react';
-import { BaseModel } from '../models/baseModel';
 import UserModel, { ModelType, UserData } from '../models/userModel';
 import { BasicResponse, UserInfoResponse } from './responseTypes';
 import UrlHelper from './urlHelper';

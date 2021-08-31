@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../material/card';
 import JobModel from '../../../models/jobModel';
 import TechModel from '../../../models/techModel';
@@ -9,7 +9,7 @@ import Tech from '../techs/tech';
 
 export interface JobProps {
   parentId?: string;
-  job: JobModel;
+  jobId: string;
 }
 
 const assignedTechFab = (jobId: string, techId: string | null) => {
@@ -20,7 +20,7 @@ const assignedTechFab = (jobId: string, techId: string | null) => {
   if (tech) {
     return (
       <Card>
-        <Tech tech={tech} key={`assigned-tech-${jobId}`} />
+        <Tech techId={techId} key={`assigned-tech-${jobId}`} />
       </Card>
     );
   }
@@ -28,9 +28,20 @@ const assignedTechFab = (jobId: string, techId: string | null) => {
 };
 
 const Job = (props: JobProps): JSX.Element => {
-  const { job, parentId } = props;
-  // const { _id, assignedTech, name, time, isRecall, description } = job;
+  const { jobId, parentId } = props;
+  console.log('Job render:', jobId);
+  const jobInput = UserModel.getModel('Jobs', jobId) as JobModel;
+  const [job, setJob] = useState<JobModel>(jobInput);
   const componentId = `job-item-${parentId ?? ''}`;
+
+  useEffect(() => {
+    UserModel.appendModelObserver(componentId, 'Jobs', updatedJob => {
+      setJob(updatedJob as JobModel);
+    });
+    return () => {
+      UserModel.removeModelObservers(componentId, 'Jobs');
+    };
+  }, []);
 
   return (
     <>
