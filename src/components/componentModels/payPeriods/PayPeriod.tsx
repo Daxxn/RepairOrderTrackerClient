@@ -6,13 +6,15 @@ import TitleCard from '../material/titleCard';
 import Accordian from '../material/accordian';
 import UserModel from '../../../models/userModel';
 import DateViewer from '../material/dateViewer';
+import { HandleNewModel } from '../../../App';
 
 export interface PayPeriodProps {
   payPeriodId: string;
+  handleNewModel: HandleNewModel;
 }
 
 const PayPeriod = (props: PayPeriodProps): JSX.Element => {
-  const { payPeriodId } = props;
+  const { payPeriodId, handleNewModel } = props;
   const payPeriodInput = UserModel.getModel('PayPeriods', payPeriodId) as PayPeriodModel;
   const [payPeriod, setPayPeriod] = useState<PayPeriodModel>(payPeriodInput);
   const id = `pay-period-item-${payPeriodId ?? 'null'}`;
@@ -35,6 +37,7 @@ const PayPeriod = (props: PayPeriodProps): JSX.Element => {
       <DateViewer date={payPeriod.endDate} />
       <Accordian flexDirection="row" buttonPosition="right">
         <RepairOrders
+          handleNewModel={handleNewModel}
           parentPayPeriodId={payPeriod._id}
           repairOrderIds={payPeriod.repairOrders}
         />

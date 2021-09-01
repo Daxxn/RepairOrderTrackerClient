@@ -5,13 +5,17 @@ import MainMenuBar from './components/menuBar';
 import UserModel, { ModelType } from './models/userModel';
 import Container from './components/componentModels/material/container';
 import Card from './components/componentModels/material/card';
-import { createuser, postLogin, fetchUserData } from './utils/fetchMethods';
+import { createUser, postLogin, fetchUserData } from './utils/fetchMethods';
 import ServerMessage from './utils/serverMessage';
 import './styles/App.css';
 import DataContainer from './components/dataContainer';
 import { TechObjects } from './models/techModel';
 
-export type HandleNewModel = (type: ModelType, parentId?: string) => void;
+export type HandleNewModel = (
+  type: ModelType,
+  parentType?: ModelType,
+  parentId?: string
+) => void;
 
 const serverMsgs = ServerMessage.get();
 
@@ -43,7 +47,7 @@ const App = (): JSX.Element => {
               } catch (error) {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                 if (error.message === serverMsgs.noUserFound) {
-                  newUser = await createuser(user);
+                  newUser = await createUser(user);
 
                   if ('message' in newUser) {
                     throw new Error(newUser.message);
@@ -82,8 +86,16 @@ const App = (): JSX.Element => {
     return () => UserModel.removeUserObserver('app');
   }, []);
 
-  const handleNewModel = (type: ModelType, parentId?: string) => {
-    UserModel.newModel(type, parentId);
+  const handleNewModel = async (
+    type: ModelType,
+    parentType?: ModelType,
+    parentId?: string
+  ) => {
+    try {
+      await UserModel.newModel(type, parentType, parentId);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -91,7 +103,9 @@ const App = (): JSX.Element => {
       <Container flexDirection="column">
         <MainMenuBar
           title="Repair Tracker"
-          handleNewModel={() => handleNewModel('Jobs', '6124af11ced8aca5e0344061')}
+          handleNewModel={() =>
+            handleNewModel('Jobs', 'RepairOrders', '6124af11ced8aca5e0344061')
+          }
         />
         {!isLoading ? (
           <>

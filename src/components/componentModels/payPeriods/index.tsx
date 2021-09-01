@@ -30,7 +30,11 @@ const PayPeriods = (props: PayPeriodProps): JSX.Element => {
       </CardHeader>
       {payPeriodIds && payPeriodIds.length > 0 ? (
         payPeriodIds.map(ppId => (
-          <PayPeriod key={`pay-period-${ppId}`} payPeriodId={ppId} />
+          <PayPeriod
+            key={`pay-period-${ppId}`}
+            payPeriodId={ppId}
+            handleNewModel={handleNewModel}
+          />
         ))
       ) : (
         <Text size="small">No Pay Periods...</Text>

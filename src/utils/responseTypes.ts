@@ -1,4 +1,4 @@
-import UserModel from '../models/userModel';
+import UserModel, { BaseType } from '../models/userModel';
 
 export type BasicResponse = {
   message: string;
@@ -12,4 +12,9 @@ export type DeleteModelResponse = {
 export type UserInfoResponse = {
   isNewUser: boolean;
   user: UserModel;
+};
+
+export type NewModelResponse = {
+  parent: UserModel | BaseType;
+  model: BaseType;
 };

@@ -38,9 +38,14 @@ class UrlHelper {
     };
   }
 
-  static buildModelUrl(type: ModelType, method?: string, body?: any): FetchInit {
+  static buildModelUrl(
+    type: ModelType,
+    id?: string,
+    method?: string,
+    body?: any
+  ): FetchInit {
     return {
-      url: `${this.config.rootUrl}api/${this.config.apiEndpoints[type]}`,
+      url: `${this.config.rootUrl}api/${this.config.apiEndpoints[type]}${id ?? ''}`,
       requestInit: {
         method: method ?? 'POST',
         credentials: 'include',

@@ -1,9 +1,9 @@
 import { User } from '@auth0/auth0-react';
 import UserModel, { ModelType, UserData } from '../models/userModel';
-import { BasicResponse, UserInfoResponse } from './responseTypes';
+import { BasicResponse, NewModelResponse, UserInfoResponse } from './responseTypes';
 import UrlHelper from './urlHelper';
 
-export async function postLogin(authId: string): Promise<UserModel> {
+const postLogin = async (authId: string): Promise<UserModel> => {
   try {
     const { url, requestInit } = UrlHelper.buildUserUrl('authId', authId, 'GET');
     const response = await fetch(url, requestInit);
@@ -17,9 +17,9 @@ export async function postLogin(authId: string): Promise<UserModel> {
     console.log('from postLogin()', err);
     throw err;
   }
-}
+};
 
-export async function createuser(user: User): Promise<UserInfoResponse | BasicResponse> {
+const createUser = async (user: User): Promise<UserInfoResponse | BasicResponse> => {
   try {
     const { url, requestInit } = UrlHelper.buildUserUrl('root', '', 'POST', {
       firstName: user.given_name,
@@ -42,16 +42,40 @@ export async function createuser(user: User): Promise<UserInfoResponse | BasicRe
       message: error.message,
     } as BasicResponse;
   }
-}
+};
 
-export async function fetchUserData(userId?: string): Promise<UserData> {
+const fetchUserData = async (userId?: string): Promise<UserData> => {
   const { url, requestInit } = UrlHelper.buildUserUrl('data', userId, 'POST');
   const response = await fetch(url, requestInit);
-  return response.json() as unknown as UserData;
-}
+  return (await response.json()) as unknown as UserData;
+};
 
-export async function createNewModel(type: ModelType): Promise<UserModel> {
-  const { url, requestInit } = UrlHelper.buildModelUrl(type);
+// #region Gen 1
+// export async function createNewModel(
+//   type: ModelType,
+//   parentId?: string
+// ): Promise<UserModel> {
+//   const { url, requestInit } = UrlHelper.buildModelUrl(type, parentId);
+//   const response = await fetch(url, requestInit);
+//   return response.json() as unknown as UserModel;
+// }
+// #endregion
+
+// #region Gen 2
+const createNewModel = async (
+  type: ModelType,
+  parentId?: string
+): Promise<NewModelResponse> => {
+  const { url, requestInit } = UrlHelper.buildModelUrl(type, parentId);
   const response = await fetch(url, requestInit);
-  return response.json() as unknown as UserModel;
-}
+  return (await response.json()) as unknown as NewModelResponse;
+};
+// #endregion
+
+const createNewPayPeriod = async (): Promise<NewModelResponse> => {
+  const { url, requestInit } = UrlHelper.buildModelUrl('PayPeriods');
+  const response = await fetch(url, requestInit);
+  return (await response.json()) as unknown as NewModelResponse;
+};
+
+export { postLogin, createUser, fetchUserData, createNewModel, createNewPayPeriod };
