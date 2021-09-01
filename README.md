@@ -1,46 +1,75 @@
-# Getting Started with Create React App
+# Repair Order Tracker App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the database API where the connection to the front-end will be handled. Incuding the typical REST & CRUD methods, authentication, and session management.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+This is going to be where I try to describe what the hell im doing.
 
-### `npm start`
+## The idea:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+A coworker was "promoted" to team leader and is having a hard time keeping track of the hundreds of repair orders (ROs) that go through the shop in a week. This makes things like keeping the teams labor balanced and time management a pain in the ass.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+I want this app to be able to store 2 - 3 months worth of ROs and any that are active, allow him, and anyone, to be able to easily see what there is, where it is and how the team is doing.
 
-### `npm test`
+Now, one would think this is something easy and should be built into what ever app is used by the dealership to manage all of this in the first place. Well one would be `wrong`. If it exists, we plebian technicians dont get access to it. Besides, after using these apps, i doubt if the managers get access to anything that usefull.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How this is going to work:
 
-### `npm run build`
+The basics of a database access and management system is the essentials and after that basic foundation is layed, things like charting and predictive suggestions are future plans.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> First things first, the `Database`. Its a MongoDB running on [Atlas](https://www.mongodb.com/cloud/atlas) so the database host is not an issue. traffic wont be that big and if things get too busy or slow it down too much, i can upgrade the clusters to a paid tier.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> The database `API`. The plan is `Node.js` with `Express` and `Mongoose`, compiled by `TypeScript`. Hopefully i can get it running in a docker container and hosted on Googles `App Engine`. If not, I can host it on `Heroku`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> The `Front-End`: This is not too bad. `React` framework with `TypeScript`. Nothing special. Except authentication is handled with `Auth0`. [Next.js](https://nextjs.org/docs/getting-started) was concidered but its not as usefull for me. Things like documentation arent a big deal. Info is pretty easy to come by. Probably going to use [Netlify](https://www.netlify.com/products/workflow/) for hosting. Theres not much more to say. Im **not** going to use [Material-UI](https://material-ui.com/) or something similar. I **am** going to try to conform to the principles of Material Design. This is a good oportunity to learn how to create modern UIs with CSS and my own two hands. This mostly has to function. Fancy can come later.
 
-### `npm run eject`
+## The Current Feature List:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Store modify and recall data from the database
+- Assign techs to a repair order, connect jobs to that repair order, and store the repair orders in a pay period.
+- A user will be able to log in and have all their preferences.
+- Track total labor hours from the completed jobs and display it in an intuitive and clear way.
+- Keep a rolling history of work completed by a team.
+- Chart the data recieved in the app.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## The Current Technology List:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- React
+- Express
+- Auth0
+- Typescript
+- Mongoose
+- MongoDB
+- Atlas
+- Docker
+- Swagger
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+##### Theres no timeline. I don't know when this will be done.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Running this thing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Running the dev environment:
+
+- Pull the repository from github
+- create and set the `.env.local` file.
+- Also need an `./src/.authconfig.json` file. (`./src/utils/config.ts` will give the names of the required properties. :)
+- Run `npm install`
+- Run `npm start`
+- Should open automatically, otherwise go to the local host specified by the `.env` file.
+- There ya go.
+
+## Deplyment:
+
+#### NO IDEA YET...
+
+(WIP)
+
+### \*\*Production Build
+
+- Set the `.env` mode to `prod`
+- run `npm build`
+
+When I know how to deploy this bad boy, this is where the walkthrough will be.
