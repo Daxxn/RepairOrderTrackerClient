@@ -1,4 +1,15 @@
 .Base-date-viewer-container {
+  display: flex;
+  flex-flow: row nowrap;
   background-color: var(--theme-primary-main);
-  color: var(--theme-font-color);
+  color: var(--theme-light-font-color);
+}
+
+.Base-title {
+  padding: 0;
+}
+
+.Base-edit-container {
+  display: flex;
+  flex-flow: column nowrap;
 }

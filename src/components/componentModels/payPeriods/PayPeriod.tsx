@@ -6,7 +6,7 @@ import TitleCard from '../material/titleCard';
 import Accordian from '../material/accordian';
 import UserModel from '../../../models/userModel';
 import DateViewer from '../material/dateViewer';
-import { HandleNewModel } from '../../../App';
+import { HandleNewModel } from '../../../utils/eventHandlers';
 
 export interface PayPeriodProps {
   payPeriodId: string;

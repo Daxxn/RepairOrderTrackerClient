@@ -1,5 +1,5 @@
 import React from 'react';
-import { HandleNewModel } from '../../App';
+import { HandleNewModel } from '../../utils/eventHandlers';
 import PayPeriods from '../componentModels/payPeriods';
 import Techs from '../componentModels/techs';
 import './dataContainer.css';

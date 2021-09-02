@@ -1,0 +1,14 @@
+.Base-search-modal {
+  position: relative;
+}
+
+.search-modal {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+}
+
+.search-menu {
+  display: flex;
+  flex-flow: row nowrap;
+}

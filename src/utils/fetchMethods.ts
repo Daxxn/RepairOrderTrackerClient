@@ -1,5 +1,5 @@
 import { User } from '@auth0/auth0-react';
-import UserModel, { ModelType, UserData } from '../models/userModel';
+import UserModel, { BaseType, ModelType, UserData } from '../models/userModel';
 import { BasicResponse, NewModelResponse, UserInfoResponse } from './responseTypes';
 import UrlHelper from './urlHelper';
 
@@ -78,4 +78,17 @@ const createNewPayPeriod = async (): Promise<NewModelResponse> => {
   return (await response.json()) as unknown as NewModelResponse;
 };
 
-export { postLogin, createUser, fetchUserData, createNewModel, createNewPayPeriod };
+const updateModel = async (type: ModelType, model: BaseType): Promise<BaseType> => {
+  const { url, requestInit } = UrlHelper.buildModelUrl(type, model._id, 'PATCH', model);
+  const response = await fetch(url, requestInit);
+  return (await response.json()) as unknown as BaseType;
+};
+
+export {
+  postLogin,
+  createUser,
+  fetchUserData,
+  createNewModel,
+  createNewPayPeriod,
+  updateModel,
+};

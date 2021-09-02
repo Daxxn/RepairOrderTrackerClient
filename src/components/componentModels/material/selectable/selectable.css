@@ -1,0 +1,13 @@
+.Base-selectable {
+  all: unset;
+  background-color: #00000000;
+  transition: background-color 120ms ease-in;
+}
+
+.Base-selectable:hover {
+  background-color: #0000000f;
+}
+
+.selectable-selected {
+  background-color: #0000001a;
+}

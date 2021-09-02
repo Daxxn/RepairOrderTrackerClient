@@ -1,5 +1,5 @@
 import React from 'react';
-import { HandleNewModel } from '../../../App';
+import { HandleNewModel } from '../../../utils/eventHandlers';
 import AddButton from '../addButton';
 import Card from '../material/card';
 import CardHeader from '../material/card/cardHeader';

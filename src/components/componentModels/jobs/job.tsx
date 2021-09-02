@@ -6,6 +6,7 @@ import UserModel from '../../../models/userModel';
 import Title from '../material/title';
 import Text from '../material/text';
 import Tech from '../techs/tech';
+import DataItem from '../material/dataItem';
 
 export interface JobProps {
   parentId?: string;
@@ -29,7 +30,6 @@ const assignedTechFab = (jobId: string, techId: string | null) => {
 
 const Job = (props: JobProps): JSX.Element => {
   const { jobId, parentId } = props;
-  console.log('Job render:', jobId);
   const jobInput = UserModel.getModel('Jobs', jobId) as JobModel;
   const [job, setJob] = useState<JobModel>(jobInput);
   const componentId = `job-item-${parentId ?? ''}`;
@@ -43,14 +43,53 @@ const Job = (props: JobProps): JSX.Element => {
     };
   }, []);
 
+  const handleEditComplete = () => {
+    UserModel.setModel('Jobs', job);
+  };
+
+  const handleEditChange = (prop: string, value: string | number) => {
+    const tempValue = prop === 'time' ? (value as number) : (value as string);
+    const tempJob = {
+      ...job,
+      [prop]: tempValue,
+    };
+    console.log('Job Change:', tempJob);
+    console.log('Original Job:', job);
+    setJob({
+      ...job,
+      [prop]: tempValue,
+    });
+  };
+
   return (
     <>
       {job ? (
         <Card key={componentId}>
           <Title>{job.name}</Title>
+          {/* <DataItem
+            prop="name"
+            value={job.name}
+            title="Name"
+            handleEditChange={handleEditChange}
+            handleEditComplete={handleEditComplete}
+          /> */}
           <Card>
+            <DataItem
+              prop="time"
+              value={job.time}
+              title="Time"
+              handleEditChange={handleEditChange}
+              handleEditComplete={handleEditComplete}
+            />
+            <DataItem
+              prop="description"
+              value={job.description}
+              title="Desc"
+              handleEditChange={handleEditChange}
+              handleEditComplete={handleEditComplete}
+            />
             <Text>{job.time}</Text>
-            <Text>{job.description}</Text>
+            {/* <Text>{job.description}</Text> */}
             {job.isRecall ? <Text>recall</Text> : ''}
             {assignedTechFab(job._id, job.assignedTech)}
           </Card>

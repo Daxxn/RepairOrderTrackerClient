@@ -3,10 +3,10 @@ import RepairOrder from './repairOrder';
 import Card from '../material/card';
 import Text from '../material/text';
 import './repairOrders.css';
-import { HandleNewModel } from '../../../App';
 import CardHeader from '../material/card/cardHeader';
 import TitleCard from '../material/titleCard';
 import AddButton from '../addButton';
+import { HandleNewModel } from '../../../utils/eventHandlers';
 
 export interface RepairOrdersProps {
   parentPayPeriodId?: string;

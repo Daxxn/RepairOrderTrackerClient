@@ -27,10 +27,7 @@ const Accordian = (props: AccordianProps): JSX.Element => {
   return (
     <div className={`Base-accordian ${buttonPosition ?? 'right'}`}>
       <Button className="Accordian-button" onClick={handleOpen ?? handleOpenClose}>
-        {/* {open ? 'close' : 'open'} */}
         {expanderButton ?? (
-          // <Arrow />
-          // <Icon iconName="ExpanderArrow.svg" invert={open} />
           <Icon invert={open}>
             <Arrow className="icon" />
           </Icon>
@@ -38,7 +35,11 @@ const Accordian = (props: AccordianProps): JSX.Element => {
       </Button>
       {open ? (
         <div className="Accordian-reset">
-          <Container flexDirection={flexDirection} justify={justify}>
+          <Container
+            className="Accordian-container"
+            flexDirection={flexDirection}
+            justify={justify}
+          >
             {children ?? <div id="empty-accordian" />}
           </Container>
         </div>

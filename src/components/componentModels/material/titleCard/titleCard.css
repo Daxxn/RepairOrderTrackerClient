@@ -1,6 +1,6 @@
 .Base-title-card {
   background-color: var(--theme-primary-main);
-  color: var(--theme-font-color);
+  color: var(--theme-light-font-color);
 }
 
 .light {

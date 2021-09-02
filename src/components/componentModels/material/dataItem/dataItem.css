@@ -1,0 +1,44 @@
+.Base-data-item {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: space-between;
+}
+
+.Controls-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.Base-input {
+  all: unset;
+  border-radius: 0.5rem;
+  margin-right: 20px;
+  padding: 0.1rem;
+  background-color: var(--theme-primary-light);
+  color: var(--theme-light-font-color);
+  transition: background-color 200ms ease-out;
+}
+
+.Base-input:hover {
+  background-color: var(--theme-hover-shade-dark);
+}
+
+.Base-input:active {
+  filter: grayscale(0.5);
+}
+
+.Base-input:focus {
+  background-color: var(--theme-hover-shade-light);
+}
+
+/* .Base-input: */
+
+.Base-value {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.Edit-button {
+  background-color: var(--theme-secondary-dark);
+  color: var(--theme-light-font-color);
+}
