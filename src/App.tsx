@@ -11,12 +11,6 @@ import './styles/App.css';
 import DataContainer from './components/dataContainer';
 import { TechObjects } from './models/techModel';
 
-export type HandleNewModel = (
-  type: ModelType,
-  parentType?: ModelType,
-  parentId?: string
-) => void;
-
 const serverMsgs = ServerMessage.get();
 
 const App = (): JSX.Element => {

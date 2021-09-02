@@ -1,6 +1,6 @@
 .Base-accordian {
-  display: flexbox;
-  flex-flow: row nowrap;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .Accordian-button {
@@ -29,4 +29,8 @@
 .Accordian-reset {
   align-content: space-around;
   text-align: center;
+}
+
+.Accordian-container {
+  display: contents;
 }

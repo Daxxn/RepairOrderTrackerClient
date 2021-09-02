@@ -13,3 +13,4 @@ export type JustifyType =
   | 'stretch'
   | 'inherit';
 export type AccordianBtnPosType = 'left' | 'right' | 'center';
+export type InputType = 'text' | 'number';

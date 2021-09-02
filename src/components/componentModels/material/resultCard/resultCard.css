@@ -1,0 +1,7 @@
+.Base-result-card {
+  background-color: unset;
+  border-top: gray solid 1px;
+  padding: 0.1rem;
+  margin: 0.1rem;
+  margin-top: 0.25rem;
+}

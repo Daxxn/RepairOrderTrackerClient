@@ -3,9 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;900&display=swap');
 
 :root {
+  font-size: 14px;
+
   --card-radius: 14px;
   --card-border-thickness: 1px;
-  --card-border-spacing: 0.2rem;
+  --card-border-spacing: 0.1rem;
   --card-margin: 1rem;
 
   --icon-size: 25px;
@@ -25,7 +27,8 @@
 
   --card-background-main: #ddd;
 
-  --theme-font-color: #fff;
+  --theme-light-font-color: #fff;
+  --theme-normal-font-color: #111;
 
   --theme-hover-shade-light: rgba(255, 255, 255, 0.1);
   --theme-hover-shade-dark: rgba(0, 0, 0, 0.1);
@@ -38,6 +41,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: whitesmoke;
+  color: var(--theme-normal-font-color);
 }
 
 code {
@@ -47,12 +52,12 @@ code {
 
 .light {
   background-color: var(--theme-primary-light);
-  color: var(--theme-font-color);
+  color: var(--theme-light-font-color);
 }
 
 .dark {
   background-color: var(--theme-primary-dark);
-  color: var(--theme-font-color);
+  color: var(--theme-light-font-color);
 }
 
 .invert {

@@ -1,0 +1,12 @@
+.Base-add-modal {
+  position: relative;
+}
+
+.add-modal {
+  position: absolute;
+}
+
+.add-modal-controls-container {
+  display: flex;
+  flex-flow: column nowrap;
+}

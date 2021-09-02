@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../material/card';
 import RepairOrderModel from '../../../models/repairOrderModel';
-import Title from '../material/title';
+// import Title from '../material/title';
 import Text from '../material/text';
 import Jobs from '../jobs';
 import UserModel from '../../../models/userModel';
 import DateViewer from '../material/dateViewer';
 import Flag from '../flag';
+import JobSearchList from '../searchLists/jobSearchList';
+import DataItem from '../material/dataItem';
 
 export interface RepairOrderProps {
   parentId?: string;
@@ -36,12 +38,42 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
     };
   }, []);
 
+  const handleSetJobs = (jobIds: string[]) => {
+    UserModel.setModel('RepairOrders', {
+      ...ro,
+      jobs: jobIds,
+    });
+  };
+
+  const handleEditComplete = () => {
+    UserModel.setModel('RepairOrders', ro);
+  };
+
+  const handleEditChange = (prop: string, value: string | number) => {
+    setRepairOrder({
+      ...ro,
+      [prop]: value,
+    });
+  };
+
   return (
     <Card>
-      <Title>RO {ro.roNumber}</Title>
+      {/* <Title>RO {ro.roNumber}</Title> */}
+      <DataItem
+        handleEditChange={handleEditChange}
+        handleEditComplete={handleEditComplete}
+        value={ro.roNumber}
+        title="RO Number"
+        prop="roNumber"
+      />
       <DateViewer date={ro.date} />
       <Text>{ro.isCompleted ? 'Completed' : 'Not Completed'}</Text>
       <Flag flagNumber={ro.flagId} />
+      <JobSearchList
+        jobIds={repairOrder.jobs}
+        parentId={repairOrderId}
+        handleConfirm={handleSetJobs}
+      />
       <Jobs jobIds={ro.jobs} parentId={ro._id} />
     </Card>
   );
