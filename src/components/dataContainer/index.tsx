@@ -1,22 +1,30 @@
 import React from 'react';
-import { HandleNewModel } from '../../utils/eventHandlers';
+import { HandleNewModel, HandleSelectItem } from '../../utils/eventHandlers';
 import PayPeriods from '../componentModels/payPeriods';
-import Techs from '../componentModels/techs';
+import TechContainer from '../techContainer';
 import './dataContainer.css';
 
 export interface DataContainerProps {
   payPeriodIds: string[];
-  techIds: string[];
+  selectedTechId: string | null;
   handleNewModel: HandleNewModel;
+  handleSelectedTech: HandleSelectItem;
 }
 
 const DataContainer = (props: DataContainerProps): JSX.Element => {
-  const { payPeriodIds, techIds, handleNewModel } = props;
+  const { payPeriodIds, selectedTechId, handleNewModel, handleSelectedTech } = props;
 
   return (
     <div>
-      <PayPeriods payPeriodIds={payPeriodIds} handleNewModel={handleNewModel} />
-      <Techs displayAllTechs techIds={techIds} />
+      <PayPeriods
+        selectedTechId={selectedTechId}
+        payPeriodIds={payPeriodIds}
+        handleNewModel={handleNewModel}
+      />
+      <TechContainer
+        handleNewModel={handleNewModel}
+        handleSelectedTech={handleSelectedTech}
+      />
     </div>
   );
 };

@@ -9,7 +9,6 @@ import { createUser, postLogin, fetchUserData } from './utils/fetchMethods';
 import ServerMessage from './utils/serverMessage';
 import './styles/App.css';
 import DataContainer from './components/dataContainer';
-import { TechObjects } from './models/techModel';
 
 const serverMsgs = ServerMessage.get();
 
@@ -17,6 +16,7 @@ const App = (): JSX.Element => {
   const { user, getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
 
   const [mainUser, setuser] = useState<UserModel | null>(null);
+  const [selectedTechId, setSelectedTechId] = useState<string | null>(null);
 
   // #region Auth0 Gen 2
   useEffect(() => {
@@ -92,6 +92,12 @@ const App = (): JSX.Element => {
     }
   };
 
+  const handleSelectedTech = (techId: string) => {
+    if (mainUser) {
+      setSelectedTechId(techId);
+    }
+  };
+
   return (
     <div className="App">
       <Container flexDirection="column">
@@ -108,8 +114,9 @@ const App = (): JSX.Element => {
                 {mainUser ? (
                   <DataContainer
                     payPeriodIds={mainUser.payPeriods}
+                    selectedTechId={selectedTechId}
                     handleNewModel={handleNewModel}
-                    techIds={Object.keys(UserModel.getObjects('Techs') as TechObjects)}
+                    handleSelectedTech={handleSelectedTech}
                   />
                 ) : (
                   <Card>

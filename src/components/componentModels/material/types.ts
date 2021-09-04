@@ -14,3 +14,4 @@ export type JustifyType =
   | 'inherit';
 export type AccordianBtnPosType = 'left' | 'right' | 'center';
 export type InputType = 'text' | 'number';
+export type ModalDirection = 'left' | 'right' | 'top' | 'bottom';

@@ -3,10 +3,10 @@ import { JobObjects } from '../../../../models/jobModel';
 import UserModel from '../../../../models/userModel';
 import JobSearchItem from './jobSearchItem';
 import Text from '../../material/text';
-import '../searchList.css';
-import Accordian from '../../material/accordian';
 import Button from '../../material/button';
 import { HandleConfirm } from '../../../../utils/eventHandlers';
+import '../searchList.css';
+import ModalContainer from '../../material/modal/modalContainer';
 
 export interface JobSearchListProps {
   jobIds: string[];
@@ -40,7 +40,7 @@ const JobSearchList = (props: JobSearchListProps): JSX.Element => {
 
   return (
     <div className="Base-search-list">
-      <Accordian buttonPosition="center" flexDirection="column">
+      <ModalContainer>
         <Text>Add Jobs:</Text>
         {allJobs ? (
           Object.values(allJobs).map(job => (
@@ -62,7 +62,7 @@ const JobSearchList = (props: JobSearchListProps): JSX.Element => {
         >
           Done
         </Button>
-      </Accordian>
+      </ModalContainer>
     </div>
   );
 };

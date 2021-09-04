@@ -114,7 +114,9 @@
         // Only allowed temporarily
         "@typescript-eslint/ban-ts-comment": "off",
         // Cant return data from a fucking fetch with this shit!
-        "@typescript-eslint/no-unsafe-assignment": "off"
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "warn",
+        "jsx-a11y/no-static-element-interactions": "warn"
       }
     }
   ]

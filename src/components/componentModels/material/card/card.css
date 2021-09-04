@@ -2,6 +2,8 @@
   border-radius: var(--card-radius);
   border-width: var(--card-border-thickness);
   border-spacing: var(--card-border-spacing);
+  border-color: gray;
+  border-style: solid;
 
   background-color: var(--card-background-main);
   color: black;

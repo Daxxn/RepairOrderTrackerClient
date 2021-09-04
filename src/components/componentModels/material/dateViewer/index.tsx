@@ -5,10 +5,11 @@ import './dateViewer.css';
 export interface DateViewerProps {
   date?: string;
   className?: string;
+  title?: string;
 }
 
 const DateViewer = (props: DateViewerProps): JSX.Element => {
-  const { date, className } = props;
+  const { date, className, title } = props;
 
   let dateDisplay = '--/--/--';
   if (date) {
@@ -22,6 +23,7 @@ const DateViewer = (props: DateViewerProps): JSX.Element => {
 
   return (
     <div className={`Base-date-viewer-container${className ? ` ${className}` : ''}`}>
+      {title ? <p className="label">{title}</p> : ''}
       <Text>{dateDisplay}</Text>
     </div>
   );

@@ -10,11 +10,12 @@ import { HandleNewModel } from '../../../utils/eventHandlers';
 
 export interface PayPeriodProps {
   payPeriodId: string;
+  selectedTechId: string | null;
   handleNewModel: HandleNewModel;
 }
 
 const PayPeriod = (props: PayPeriodProps): JSX.Element => {
-  const { payPeriodId, handleNewModel } = props;
+  const { payPeriodId, selectedTechId, handleNewModel } = props;
   const payPeriodInput = UserModel.getModel('PayPeriods', payPeriodId) as PayPeriodModel;
   const [payPeriod, setPayPeriod] = useState<PayPeriodModel>(payPeriodInput);
   const id = `pay-period-item-${payPeriodId ?? 'null'}`;
@@ -31,13 +32,12 @@ const PayPeriod = (props: PayPeriodProps): JSX.Element => {
   return (
     <Card>
       <TitleCard>Pay Period</TitleCard>
-      <p className="label">Start Date</p>
-      <DateViewer date={payPeriod.startDate} />
-      <p className="label">End Date</p>
-      <DateViewer date={payPeriod.endDate} />
+      <DateViewer date={payPeriod.startDate} title="Start Date" />
+      <DateViewer date={payPeriod.endDate} title="End Date" />
       <Accordian flexDirection="row" buttonPosition="right">
         <RepairOrders
           handleNewModel={handleNewModel}
+          selectedTechId={selectedTechId}
           parentPayPeriodId={payPeriod._id}
           repairOrderIds={payPeriod.repairOrders}
         />

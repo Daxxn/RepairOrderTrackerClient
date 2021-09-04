@@ -22,7 +22,7 @@ const Techs = (props: TechsProps): JSX.Element => {
         <>
           {allTechIds && displayAllTechs ? (
             Object.values(allTechIds).map(id => (
-              <Tech key={`main-tech-item-${id}`} techId={id} />
+              <Tech key={`tech-item-${id}`} techId={id} />
             ))
           ) : (
             <Text>No Techs found.</Text>

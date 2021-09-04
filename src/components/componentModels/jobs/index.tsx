@@ -6,10 +6,11 @@ import Job from './job';
 export interface JobsProps {
   parentId?: string;
   jobIds: string[];
+  selectedTechId: string | null;
 }
 
 const Jobs = (props: JobsProps): JSX.Element => {
-  const { jobIds, parentId } = props;
+  const { jobIds, parentId, selectedTechId } = props;
 
   return (
     <Container flexDirection="column">
@@ -19,6 +20,7 @@ const Jobs = (props: JobsProps): JSX.Element => {
             key={`job-${id}-${parentId ? `${parentId}` : ''}`}
             parentId={parentId}
             jobId={id}
+            selectedTechId={selectedTechId}
           />
         ))
       ) : (

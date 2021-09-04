@@ -11,11 +11,12 @@ import { HandleNewModel } from '../../../utils/eventHandlers';
 export interface RepairOrdersProps {
   parentPayPeriodId?: string;
   repairOrderIds: string[];
+  selectedTechId: string | null;
   handleNewModel: HandleNewModel;
 }
 
 const RepairOrders = (props: RepairOrdersProps): JSX.Element => {
-  const { repairOrderIds, parentPayPeriodId, handleNewModel } = props;
+  const { repairOrderIds, parentPayPeriodId, selectedTechId, handleNewModel } = props;
 
   return (
     <Card>
@@ -33,6 +34,7 @@ const RepairOrders = (props: RepairOrdersProps): JSX.Element => {
             key={`repair-order-${id}-${parentPayPeriodId ?? ''}`}
             parentId={parentPayPeriodId}
             repairOrderId={id}
+            selectedTechId={selectedTechId}
           />
         ))
       ) : (
