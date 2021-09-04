@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Cookies from 'js-cookie';
 import MainMenuBar from './components/menuBar';
-import UserModel, { ModelType } from './models/userModel';
+import UserModel, { BaseType, ModelType } from './models/userModel';
 import Container from './components/componentModels/material/container';
 import Card from './components/componentModels/material/card';
 import { createUser, postLogin, fetchUserData } from './utils/fetchMethods';
@@ -92,6 +92,14 @@ const App = (): JSX.Element => {
     }
   };
 
+  const handleAddCompleteModel = async (type: ModelType, newModel: BaseType) => {
+    try {
+      await UserModel.newCompleteModel(type, newModel);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleSelectedTech = (techId: string) => {
     if (mainUser) {
       setSelectedTechId(techId);
@@ -116,6 +124,7 @@ const App = (): JSX.Element => {
                     payPeriodIds={mainUser.payPeriods}
                     selectedTechId={selectedTechId}
                     handleNewModel={handleNewModel}
+                    handleAddCompleteModel={handleAddCompleteModel}
                     handleSelectedTech={handleSelectedTech}
                   />
                 ) : (

@@ -1,5 +1,9 @@
 import React from 'react';
-import { HandleNewModel, HandleSelectItem } from '../../utils/eventHandlers';
+import {
+  HandleAddCompleteModel,
+  HandleNewModel,
+  HandleSelectItem,
+} from '../../utils/eventHandlers';
 import PayPeriods from '../componentModels/payPeriods';
 import TechContainer from '../techContainer';
 import './dataContainer.css';
@@ -8,11 +12,18 @@ export interface DataContainerProps {
   payPeriodIds: string[];
   selectedTechId: string | null;
   handleNewModel: HandleNewModel;
+  handleAddCompleteModel: HandleAddCompleteModel;
   handleSelectedTech: HandleSelectItem;
 }
 
 const DataContainer = (props: DataContainerProps): JSX.Element => {
-  const { payPeriodIds, selectedTechId, handleNewModel, handleSelectedTech } = props;
+  const {
+    payPeriodIds,
+    selectedTechId,
+    handleNewModel,
+    handleAddCompleteModel,
+    handleSelectedTech,
+  } = props;
 
   return (
     <div>
@@ -22,7 +33,7 @@ const DataContainer = (props: DataContainerProps): JSX.Element => {
         handleNewModel={handleNewModel}
       />
       <TechContainer
-        handleNewModel={handleNewModel}
+        handleAddCompleteModel={handleAddCompleteModel}
         handleSelectedTech={handleSelectedTech}
       />
     </div>

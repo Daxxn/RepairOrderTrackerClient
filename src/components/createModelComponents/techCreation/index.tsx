@@ -1,17 +1,49 @@
 import React, { useState } from 'react';
 import TechModel from '../../../models/techModel';
-import { HandleNewModel } from '../../../utils/eventHandlers';
+import { HandleAddCompleteModel } from '../../../utils/eventHandlers';
+import Button from '../../componentModels/material/button';
 import '../createModel.css';
 
 export interface TechCreationProps {
-  handleNewModel: HandleNewModel;
+  handleAddCompleteModel: HandleAddCompleteModel;
+  handleCancel?: () => void;
 }
 
 const TechCreation = (props: TechCreationProps): JSX.Element => {
-  const { handleNewModel } = props;
-  const [newTech, setTech] = useState<TechModel | null>(null);
+  const { handleAddCompleteModel, handleCancel } = props;
+  const [newTech, setTech] = useState<TechModel>({
+    _id: '',
+    name: '',
+    techNumber: 1234,
+    userId: '',
+    __v: 0,
+  });
 
-  return <div></div>;
+  const handlePropChange = (prop: string, value: any) => {
+    setTech({
+      ...newTech,
+      [prop]: value,
+    });
+  };
+
+  const handleCloseAndSave = () => {
+    handleAddCompleteModel('Techs', newTech);
+  };
+
+  return (
+    <div className="Base-create-model">
+      <input
+        onChange={e => handlePropChange('name', e.target.value)}
+        value={newTech.name}
+      />
+      <input
+        onChange={e => handlePropChange('techNumber', e.target.value)}
+        value={newTech.techNumber}
+      />
+      <Button onClick={handleCloseAndSave}>Create</Button>
+      <Button onClick={handleCancel}>Cancel</Button>
+    </div>
+  );
 };
 
 export default TechCreation;

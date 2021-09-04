@@ -3,6 +3,7 @@ import { TechObjects } from '../../models/techModel';
 import { HandleSelectItem } from '../../utils/eventHandlers';
 import Text from '../componentModels/material/text';
 import FullTech from './fullTech';
+import './techContainer.css';
 
 export interface AllTechsProps {
   techs: TechObjects;
@@ -13,7 +14,7 @@ const AllTechs = (props: AllTechsProps): JSX.Element => {
   const { techs, handleSelectedTech } = props;
 
   return (
-    <div>
+    <div className="Base-tech-container">
       {techs ? (
         Object.values(techs).map(tech => (
           <FullTech
