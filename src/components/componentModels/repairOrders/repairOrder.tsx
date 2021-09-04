@@ -9,14 +9,16 @@ import DateViewer from '../material/dateViewer';
 import Flag from '../flag';
 import JobSearchList from '../searchLists/jobSearchList';
 import DataItem from '../material/dataItem';
+import Switch from '../material/switch';
 
 export interface RepairOrderProps {
   parentId?: string;
   repairOrderId: string;
+  selectedTechId: string | null;
 }
 
 const RepairOrder = (props: RepairOrderProps): JSX.Element => {
-  const { repairOrderId, parentId } = props;
+  const { repairOrderId, parentId, selectedTechId } = props;
   const repairOrder = UserModel.getModel(
     'RepairOrders',
     repairOrderId
@@ -56,6 +58,13 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
     });
   };
 
+  const handleSwitchChange = (prop: string, value: boolean) => {
+    UserModel.setModel('RepairOrders', {
+      ...ro,
+      [prop]: value,
+    });
+  };
+
   return (
     <Card>
       {/* <Title>RO {ro.roNumber}</Title> */}
@@ -67,14 +76,18 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
         prop="roNumber"
       />
       <DateViewer date={ro.date} />
-      <Text>{ro.isCompleted ? 'Completed' : 'Not Completed'}</Text>
+      {/* <Text>{ro.isCompleted ? 'Completed' : 'Not Completed'}</Text> */}
+      <Switch
+        value={ro.isCompleted}
+        handleSetSwitch={value => handleSwitchChange('isCompleted', value)}
+      />
       <Flag flagNumber={ro.flagId} />
       <JobSearchList
         jobIds={repairOrder.jobs}
         parentId={repairOrderId}
         handleConfirm={handleSetJobs}
       />
-      <Jobs jobIds={ro.jobs} parentId={ro._id} />
+      <Jobs jobIds={ro.jobs} parentId={ro._id} selectedTechId={selectedTechId} />
     </Card>
   );
 };

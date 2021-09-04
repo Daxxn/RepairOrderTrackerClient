@@ -18,3 +18,7 @@ export type NewModelResponse = {
   parent: UserModel | BaseType;
   model: BaseType;
 };
+
+export type NewCompleteModelResponse = {
+  model: BaseType;
+};

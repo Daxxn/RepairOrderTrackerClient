@@ -4,8 +4,8 @@ import PayPeriodModel, { PayPeriodObjects } from './payPeriodModel';
 import RepairOrderModel, { RepairOrderObjects } from './repairOrderModel';
 import TechModel, { TechObjects } from './techModel';
 import UrlHelper from '../utils/urlHelper';
-import { BasicResponse } from '../utils/responseTypes';
-import { createNewModel } from '../utils/fetchMethods';
+import { BasicResponse, NewCompleteModelResponse } from '../utils/responseTypes';
+import { createNewCompleteModel, createNewModel } from '../utils/fetchMethods';
 import ApiHandler from '../utils/apiScheduler';
 
 export type UserCallback = (updatedUser: UserModel | null) => void;
@@ -200,6 +200,14 @@ class UserModel {
       } catch (err) {
         console.log(err);
       }
+    }
+  }
+
+  static async newCompleteModel(type: ModelType, newModel: BaseType): Promise<void> {
+    if (this.user) {
+      const { model } = await createNewCompleteModel(type, newModel);
+      this.modelData[type][model._id] = model;
+      this.updateModelObservers(type, model);
     }
   }
   // #endregion

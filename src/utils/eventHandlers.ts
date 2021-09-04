@@ -17,6 +17,8 @@ export type HandleAddNewModel = (
   newModel: BaseType
 ) => void;
 
+export type HandleAddCompleteModel = (type: ModelType, newModel: BaseType) => void;
+
 export type HandleConfirm = (modelIds: string[]) => void;
 
 export type HandleEditComplete = () => void;

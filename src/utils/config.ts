@@ -16,6 +16,11 @@ export type AuthEndpoint = {
   [key in AuthEndpointType]: string;
 };
 
+export type ModelEndpointType = 'complete' | 'many';
+export type ModelEndpoint = {
+  [key in ModelEndpointType]: string;
+};
+
 export interface AuthConfig {
   useAuth: boolean;
   authDomain: string;
@@ -32,6 +37,7 @@ export interface ApiConfig {
   apiEndpoints: Endpoint;
   userEndpoints: UserEndpoint;
   authEndpoints: AuthEndpoint;
+  modelEndpoints: ModelEndpoint;
 }
 
 class Config {
@@ -58,6 +64,7 @@ class Config {
       apiEndpoints: endpointsConfig.apiEndpoints as Endpoint,
       userEndpoints: endpointsConfig.userEndpoints as UserEndpoint,
       authEndpoints: endpointsConfig.authEndpoints as AuthEndpoint,
+      modelEndpoints: endpointsConfig.modelEndpoints as ModelEndpoint,
     };
   }
 

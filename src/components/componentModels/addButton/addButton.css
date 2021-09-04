@@ -31,7 +31,3 @@ svg:hover #fold-outline {
   stroke-opacity: 0;
   transition: stroke-opacity 100ms ease-in;
 }
-/* 
-#page:hover {
-  fill-opacity: 0.35;
-} */

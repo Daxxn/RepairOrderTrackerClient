@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Cookies from 'js-cookie';
 import MainMenuBar from './components/menuBar';
-import UserModel, { ModelType } from './models/userModel';
+import UserModel, { BaseType, ModelType } from './models/userModel';
 import Container from './components/componentModels/material/container';
 import Card from './components/componentModels/material/card';
 import { createUser, postLogin, fetchUserData } from './utils/fetchMethods';
 import ServerMessage from './utils/serverMessage';
 import './styles/App.css';
 import DataContainer from './components/dataContainer';
-import { TechObjects } from './models/techModel';
 
 const serverMsgs = ServerMessage.get();
 
@@ -17,6 +16,7 @@ const App = (): JSX.Element => {
   const { user, getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
 
   const [mainUser, setuser] = useState<UserModel | null>(null);
+  const [selectedTechId, setSelectedTechId] = useState<string | null>(null);
 
   // #region Auth0 Gen 2
   useEffect(() => {
@@ -92,6 +92,20 @@ const App = (): JSX.Element => {
     }
   };
 
+  const handleAddCompleteModel = async (type: ModelType, newModel: BaseType) => {
+    try {
+      await UserModel.newCompleteModel(type, newModel);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSelectedTech = (techId: string) => {
+    if (mainUser) {
+      setSelectedTechId(techId);
+    }
+  };
+
   return (
     <div className="App">
       <Container flexDirection="column">
@@ -108,8 +122,10 @@ const App = (): JSX.Element => {
                 {mainUser ? (
                   <DataContainer
                     payPeriodIds={mainUser.payPeriods}
+                    selectedTechId={selectedTechId}
                     handleNewModel={handleNewModel}
-                    techIds={Object.keys(UserModel.getObjects('Techs') as TechObjects)}
+                    handleAddCompleteModel={handleAddCompleteModel}
+                    handleSelectedTech={handleSelectedTech}
                   />
                 ) : (
                   <Card>

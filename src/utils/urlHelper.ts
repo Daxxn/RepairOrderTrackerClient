@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { ModelType } from '../models/userModel';
-import Config, { UserEndpointType, ApiConfig } from './config';
+import Config, { UserEndpointType, ApiConfig, ModelEndpointType } from './config';
 
 export type FetchInit = {
   url: string;
@@ -38,14 +38,17 @@ class UrlHelper {
     };
   }
 
-  static buildModelUrl(
+  static buildModelUrl<T>(
     type: ModelType,
     id?: string,
+    extension?: ModelEndpointType,
     method?: string,
-    body?: any
+    body?: T
   ): FetchInit {
     return {
-      url: `${this.config.rootUrl}api/${this.config.apiEndpoints[type]}${id ?? ''}`,
+      url: `${this.config.rootUrl}api/${this.config.apiEndpoints[type]}${
+        extension ? this.config.modelEndpoints[extension] : ''
+      }${id ?? ''}`,
       requestInit: {
         method: method ?? 'POST',
         credentials: 'include',

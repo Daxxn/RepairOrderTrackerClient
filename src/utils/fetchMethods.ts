@@ -1,6 +1,11 @@
 import { User } from '@auth0/auth0-react';
 import UserModel, { BaseType, ModelType, UserData } from '../models/userModel';
-import { BasicResponse, NewModelResponse, UserInfoResponse } from './responseTypes';
+import {
+  BasicResponse,
+  NewCompleteModelResponse,
+  NewModelResponse,
+  UserInfoResponse,
+} from './responseTypes';
 import UrlHelper from './urlHelper';
 
 const postLogin = async (authId: string): Promise<UserModel> => {
@@ -70,6 +75,20 @@ const createNewModel = async (
   const response = await fetch(url, requestInit);
   return (await response.json()) as unknown as NewModelResponse;
 };
+const createNewCompleteModel = async (
+  type: ModelType,
+  newModel: BaseType
+): Promise<NewCompleteModelResponse> => {
+  const { url, requestInit } = UrlHelper.buildModelUrl(
+    type,
+    undefined,
+    'complete',
+    'POST',
+    newModel
+  );
+  const response = await fetch(url, requestInit);
+  return (await response.json()) as unknown as NewCompleteModelResponse;
+};
 // #endregion
 
 const createNewPayPeriod = async (): Promise<NewModelResponse> => {
@@ -79,7 +98,13 @@ const createNewPayPeriod = async (): Promise<NewModelResponse> => {
 };
 
 const updateModel = async (type: ModelType, model: BaseType): Promise<BaseType> => {
-  const { url, requestInit } = UrlHelper.buildModelUrl(type, model._id, 'PATCH', model);
+  const { url, requestInit } = UrlHelper.buildModelUrl(
+    type,
+    model._id,
+    undefined,
+    'PATCH',
+    model
+  );
   const response = await fetch(url, requestInit);
   return (await response.json()) as unknown as BaseType;
 };
@@ -89,6 +114,7 @@ export {
   createUser,
   fetchUserData,
   createNewModel,
+  createNewCompleteModel,
   createNewPayPeriod,
   updateModel,
 };

@@ -6,6 +6,10 @@
     "Techs": "techs/",
     "Flags": "flags/"
   },
+  "modelEndpoints": {
+    "complete": "complete/",
+    "many": "many/"
+  },
   "userEndpoints": {
     "root": "",
     "userName": "username/",

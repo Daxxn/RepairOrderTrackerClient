@@ -9,11 +9,12 @@ import PayPeriod from './PayPeriod';
 
 export interface PayPeriodProps {
   payPeriodIds: string[] | null;
+  selectedTechId: string | null;
   handleNewModel: HandleNewModel;
 }
 
 const PayPeriods = (props: PayPeriodProps): JSX.Element => {
-  const { payPeriodIds, handleNewModel } = props;
+  const { payPeriodIds, selectedTechId, handleNewModel } = props;
   console.log('PayPeriod Component ', payPeriodIds);
   const id = 'main-pay-period-list';
 
@@ -23,7 +24,7 @@ const PayPeriods = (props: PayPeriodProps): JSX.Element => {
   };
 
   return (
-    <Card theme="light" key={id}>
+    <Card key={id}>
       <CardHeader>
         <TitleCard>PayPeriods</TitleCard>
         <AddButton addModelHandler={handleAdd} />
@@ -33,6 +34,7 @@ const PayPeriods = (props: PayPeriodProps): JSX.Element => {
           <PayPeriod
             key={`pay-period-${ppId}`}
             payPeriodId={ppId}
+            selectedTechId={selectedTechId}
             handleNewModel={handleNewModel}
           />
         ))
