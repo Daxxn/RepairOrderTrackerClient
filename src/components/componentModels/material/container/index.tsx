@@ -1,12 +1,12 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import './container.css';
-import { FlexDirType, JustifyType } from '../types';
+import { FlexDirType, JustifyFlexType } from '../types';
 
 export interface ContainerProps {
   children?: ReactNode;
   className?: string;
   flexDirection?: FlexDirType;
-  justify?: JustifyType;
+  justify?: JustifyFlexType;
 }
 
 const Container = (props: ContainerProps): JSX.Element => {

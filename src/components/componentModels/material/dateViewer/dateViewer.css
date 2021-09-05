@@ -1,8 +1,8 @@
 .Base-date-viewer-container {
   display: flex;
   flex-flow: row nowrap;
-  background-color: var(--theme-primary-main);
-  color: var(--theme-light-font-color);
+  /* background-color: var(--theme-primary-main); */
+  /* color: var(--theme-light-font-color); */
 }
 
 .Base-title {

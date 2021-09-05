@@ -2,7 +2,7 @@ export type ButtonTheme = 'primary' | 'secondary';
 export type ThemeType = 'light' | 'dark';
 export type TextSizeType = 'small' | 'med' | 'large';
 export type FlexDirType = 'column' | 'column-reverse' | 'row' | 'row-reverse';
-export type JustifyType =
+export type JustifyFlexType =
   | 'flex-start'
   | 'flex-end'
   | 'center'
@@ -12,6 +12,6 @@ export type JustifyType =
   | 'right'
   | 'stretch'
   | 'inherit';
-export type AccordianBtnPosType = 'left' | 'right' | 'center';
+export type AlignType = 'left' | 'right' | 'center';
 export type InputType = 'text' | 'number';
 export type ModalDirection = 'left' | 'right' | 'top' | 'bottom';
