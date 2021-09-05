@@ -2,7 +2,7 @@ import React, { MouseEventHandler, ReactNode, useState } from 'react';
 import Button from '../button';
 import Container from '../container';
 import { AlignType, FlexDirType, JustifyFlexType } from '../types';
-import { ReactComponent as Arrow } from '../../../../icons/ExpanderArrow-test.svg';
+import { ReactComponent as Arrow } from '../../../../icons/ExpanderArrow.svg';
 import './accordian.css';
 import Icon from '../icon';
 

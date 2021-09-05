@@ -3,11 +3,9 @@ import Card from '../material/card';
 import JobModel from '../../../models/jobModel';
 import TechModel from '../../../models/techModel';
 import UserModel from '../../../models/userModel';
-import Title from '../material/title';
 import Text from '../material/text';
 import DataItem from '../material/dataItem';
 import Button from '../material/button';
-import CardHeader from '../material/card/cardHeader';
 import TitleCard from '../material/titleCard';
 
 export interface JobProps {

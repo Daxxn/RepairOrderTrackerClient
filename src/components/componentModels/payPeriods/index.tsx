@@ -2,7 +2,6 @@ import React from 'react';
 import { HandleNewModel } from '../../../utils/eventHandlers';
 import AddButton from '../addButton';
 import Accordian from '../material/accordian';
-import Card from '../material/card';
 import CardHeader from '../material/card/cardHeader';
 import CardGroup from '../material/cardGroup';
 import Text from '../material/text';

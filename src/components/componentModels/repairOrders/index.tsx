@@ -1,6 +1,5 @@
 import React from 'react';
 import RepairOrder from './repairOrder';
-import Card from '../material/card';
 import Text from '../material/text';
 import './repairOrders.css';
 import CardHeader from '../material/card/cardHeader';

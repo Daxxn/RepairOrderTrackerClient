@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../material/card';
 import RepairOrderModel from '../../../models/repairOrderModel';
-// import Title from '../material/title';
 import Text from '../material/text';
 import Jobs from '../jobs';
 import UserModel from '../../../models/userModel';
@@ -9,7 +8,6 @@ import DateViewer from '../material/dateViewer';
 import Flag from '../flag';
 import JobSearchList from '../searchLists/jobSearchList';
 import DataItem from '../material/dataItem';
-import Switch from '../material/switch';
 import Accordian from '../material/accordian';
 import TitleCard from '../material/titleCard';
 
@@ -60,12 +58,12 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
     });
   };
 
-  const handleSwitchChange = (prop: string, value: boolean) => {
-    UserModel.setModel('RepairOrders', {
-      ...ro,
-      [prop]: value,
-    });
-  };
+  // const handleSwitchChange = (prop: string, value: boolean) => {
+  //   UserModel.setModel('RepairOrders', {
+  //     ...ro,
+  //     [prop]: value,
+  //   });
+  // };
 
   return (
     <Card>
@@ -78,11 +76,11 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
         prop="roNumber"
       />
       <DateViewer date={ro.date} />
-      {/* <Text>{ro.isCompleted ? 'Completed' : 'Not Completed'}</Text> */}
-      <Switch
+      <Text>{ro.isCompleted ? 'Completed' : 'Not Completed'}</Text>
+      {/* <Switch
         value={ro.isCompleted}
         handleSetSwitch={value => handleSwitchChange('isCompleted', value)}
-      />
+      /> */}
       <Flag flagNumber={ro.flagId} />
       <JobSearchList
         jobIds={repairOrder.jobs}
