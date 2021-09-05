@@ -5,13 +5,34 @@
 
 .Accordian-button {
   border: 0;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0);
+  border-radius: 0;
+  /* background-color: rgba(255, 255, 255, 0); */
+  background-color: var(--theme-primary-light);
   transition: ease-in 100ms;
+  transform: translateY(0);
+  fill-opacity: 0.4;
+  /* transition: fill-opacity 200ms ease-in; */
+}
+svg #hover-arrow {
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  transform: translateY(0px);
+  fill-opacity: 0;
+  transition: fill-opacity transform 200ms ease-in;
 }
 
-.Accordian-button:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+.Accordian-button .closed {
+  border-radius: 5px;
+}
+
+.Accordian-button:hover svg #hover-arrow {
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  transform: translateY(5px);
+  fill-opacity: 0.2;
+}
+
+.Accordian-button:hover svg #main-arrow {
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  fill-opacity: 0.4;
 }
 
 .left {
@@ -34,3 +55,18 @@
 .Accordian-container {
   display: contents;
 }
+
+/* svg {
+  transform: translateY(0);
+  fill-opacity: 0.4;
+  transition: transform fill-opacity 200ms ease-in;
+}
+
+svg:hover #main-arrow {
+  fill-opacity: 0.2;
+}
+
+svg:hover #hover-arrow {
+  fill-opacity: 0.2;
+  transform: translateY(10px);
+} */

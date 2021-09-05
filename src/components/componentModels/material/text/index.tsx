@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { TextSizeType } from '../types';
+import { AlignType, TextSizeType } from '../types';
 import './text.css';
 
 export interface TextProps {
@@ -7,16 +7,17 @@ export interface TextProps {
   children?: ReactNode;
   size?: TextSizeType;
   className?: string;
+  align?: AlignType;
 }
 
 const Text = (props: TextProps): JSX.Element => {
-  const { value, children, size, className } = props;
+  const { value, children, size, className, align } = props;
 
   return (
     <p
       className={`Base-text${size ? ` ${size}` : ' med'}${
         className ? ` ${className}` : ''
-      }`}
+      }${align ? ` ${align}` : ''}`}
     >
       {children ?? value}
     </p>

@@ -7,6 +7,7 @@ import CardHeader from '../material/card/cardHeader';
 import TitleCard from '../material/titleCard';
 import AddButton from '../addButton';
 import { HandleNewModel } from '../../../utils/eventHandlers';
+import CardGroup from '../material/cardGroup';
 
 export interface RepairOrdersProps {
   parentPayPeriodId?: string;
@@ -19,9 +20,15 @@ const RepairOrders = (props: RepairOrdersProps): JSX.Element => {
   const { repairOrderIds, parentPayPeriodId, selectedTechId, handleNewModel } = props;
 
   return (
-    <Card>
+    <CardGroup>
       <CardHeader>
-        <TitleCard>Repair Orders</TitleCard>
+        {parentPayPeriodId ? (
+          <TitleCard align="left" size="small">
+            Repair Orders
+          </TitleCard>
+        ) : (
+          <TitleCard>Repair Orders</TitleCard>
+        )}
         <AddButton
           addModelHandler={() =>
             handleNewModel('RepairOrders', 'PayPeriods', parentPayPeriodId)
@@ -40,7 +47,7 @@ const RepairOrders = (props: RepairOrdersProps): JSX.Element => {
       ) : (
         <Text>No Repair Orders...</Text>
       )}
-    </Card>
+    </CardGroup>
   );
 };
 

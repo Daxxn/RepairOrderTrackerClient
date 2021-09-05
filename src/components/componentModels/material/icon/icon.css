@@ -2,3 +2,11 @@
   width: var(--icon-size);
   height: var(--icon-size);
 }
+
+.Base-icon .closed {
+  border-radius: 5px;
+}
+
+.closed {
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
+}

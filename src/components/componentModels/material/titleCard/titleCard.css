@@ -23,9 +23,14 @@
   font-size: 1.5rem;
 }
 
-.test {
-  flex-direction: column;
-  flex-direction: column-reverse;
-  flex-direction: row;
-  flex-direction: row-reverse;
+.Base-title-card .left {
+  text-align: left;
+}
+
+.Base-title-card .right {
+  text-align: right;
+}
+
+.Base-title-card .center {
+  text-align: center;
 }

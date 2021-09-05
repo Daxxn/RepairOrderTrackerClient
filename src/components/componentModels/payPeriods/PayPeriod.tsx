@@ -31,7 +31,9 @@ const PayPeriod = (props: PayPeriodProps): JSX.Element => {
 
   return (
     <Card>
-      <TitleCard>Pay Period</TitleCard>
+      <TitleCard size="small" align="left">
+        Pay Period
+      </TitleCard>
       <DateViewer date={payPeriod.startDate} title="Start Date" />
       <DateViewer date={payPeriod.endDate} title="End Date" />
       <Accordian flexDirection="row" buttonPosition="right">

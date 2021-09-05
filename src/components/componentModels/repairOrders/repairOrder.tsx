@@ -10,6 +10,8 @@ import Flag from '../flag';
 import JobSearchList from '../searchLists/jobSearchList';
 import DataItem from '../material/dataItem';
 import Switch from '../material/switch';
+import Accordian from '../material/accordian';
+import TitleCard from '../material/titleCard';
 
 export interface RepairOrderProps {
   parentId?: string;
@@ -87,7 +89,12 @@ const RepairOrder = (props: RepairOrderProps): JSX.Element => {
         parentId={repairOrderId}
         handleConfirm={handleSetJobs}
       />
-      <Jobs jobIds={ro.jobs} parentId={ro._id} selectedTechId={selectedTechId} />
+      <TitleCard size="small" align="left">
+        Jobs
+      </TitleCard>
+      <Accordian>
+        <Jobs jobIds={ro.jobs} parentId={ro._id} selectedTechId={selectedTechId} />
+      </Accordian>
     </Card>
   );
 };

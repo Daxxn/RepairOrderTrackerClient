@@ -7,6 +7,8 @@ import Title from '../material/title';
 import Text from '../material/text';
 import DataItem from '../material/dataItem';
 import Button from '../material/button';
+import CardHeader from '../material/card/cardHeader';
+import TitleCard from '../material/titleCard';
 
 export interface JobProps {
   parentId?: string;
@@ -62,29 +64,43 @@ const Job = (props: JobProps): JSX.Element => {
     <>
       {job ? (
         <Card key={componentId}>
-          <Title>{job.name}</Title>
-          <Card>
-            <DataItem
-              prop="time"
-              value={job.time}
-              title="Time"
-              handleEditChange={handleEditChange}
-              handleEditComplete={handleEditComplete}
-            />
-            <DataItem
-              prop="description"
-              value={job.description}
-              title="Desc"
-              handleEditChange={handleEditChange}
-              handleEditComplete={handleEditComplete}
-            />
-            {/* <Text>{job.description}</Text> */}
-            {job.isRecall ? <Text>recall</Text> : ''}
-            <div>
-              {tech ? <Text>Assigned Tech {tech.name}</Text> : ''}
-              <Button onClick={handleAssignTech}>Assign Selected Tech</Button>
-            </div>
-          </Card>
+          <TitleCard size="small" align="left">
+            {job.name}
+          </TitleCard>
+          <DataItem
+            prop="time"
+            value={job.time}
+            title="Time"
+            handleEditChange={handleEditChange}
+            handleEditComplete={handleEditComplete}
+          />
+          <DataItem
+            prop="description"
+            value={job.description}
+            title="Desc"
+            handleEditChange={handleEditChange}
+            handleEditComplete={handleEditComplete}
+          />
+          {/* <Text>{job.description}</Text> */}
+          {job.isRecall ? (
+            <Text size="small" align="left">
+              recall
+            </Text>
+          ) : (
+            ''
+          )}
+          <div>
+            {tech ? (
+              <Card>
+                <Text size="small" align="left">
+                  Assigned Tech : {tech.name}
+                </Text>
+              </Card>
+            ) : (
+              ''
+            )}
+            <Button onClick={handleAssignTech}>Assign Selected Tech</Button>
+          </div>
         </Card>
       ) : (
         ''
